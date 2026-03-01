@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Formatters</title>
+</head>
+
+<body>
+  <table border="">
+    <!-- caption is sort of title for tables -->
+    <caption>
+      Table with all the semantic elements such as &lt;thead&gt;, etc.
+    </caption>
+    <colgroup>
+      <col style="background-color: red;">
+      <col style="background-color: greenyellow;">
+      <col style="background-color: rebeccapurple;">
+    </colgroup>
+    <thead>
+      <!-- tr: Table row  -->
+      <tr>
+        <!-- th : Table head  -->
+        <th>Row 1, Col 1</th>
+        <th>Row 1, Col 2</th>
+        <th>Row 1, Col 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!-- td: Table data -->
+        <td>Row 2, Col 1</td>
+        <td>Row 2, Col 2</td>
+        <td>Row 2, Col 3</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Row 3, Col 1</td>
+        <td>Row 3, Col 2</td>
+        <td>Row 3, Col 3</td>
+      </tr>
+    </tfoot>
+  </table>
+  <br />
+  <!-- ----------------------------- -->
+  <table border="">
+    <caption>
+      Simple table with example.
+    </caption>
+    <colgroup>
+      <col span="1" style="background-color: cyan;">
+      <col span="2" style="background-color: red;">
+    </colgroup>
+    <!-- tr: Table row  -->
+    <tr>
+      <!-- th : Table head  -->
+      <th>Name</th>
+      <th>Class</th>
+      <th>Year</th>
+      <!-- <th>Row 1, Col 1</th>
+        <th>Row 1, Col 2</th>
+        <th>Row 1, Col 3</th> -->
+    </tr>
+    <tr>
+      <!-- td: Table data -->
+      <td>Pratham</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 2, Col 1</td>
+        <td>Row 2, Col 2</td>
+        <td>Row 2, Col 3</td> -->
+    </tr>
+    <tr>
+      <td>Arko</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 3, Col 1</td>
+        <td>Row 3, Col 2</td>
+        <td>Row 3, Col 3</td> -->
+    </tr>
+  </table>
+  <!-- ----------------------------- -->
+  <table border="">
+    <caption>
+      Table with examples of attribute 'rowspan'. The vertical span of cell.
+    </caption>
+    <colgroup>
+      <col span="1" style="background-color: cyan;">
+      <col span="2" style="background-color: red;">
+    </colgroup>
+    <!-- tr: Table row  -->
+    <tr>
+      <!-- th : Table head  -->
+      <th rowspan="2">Name</th>
+      <th>Class</th>
+      <th>Year</th>
+      <!-- <th>Row 1, Col 1</th>
+        <th>Row 1, Col 2</th>
+        <th>Row 1, Col 3</th> -->
+    </tr>
+    <tr>
+      <!-- td: Table data -->
+      <td>Pratham</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 2, Col 1</td>
+        <td>Row 2, Col 2</td>
+        <td>Row 2, Col 3</td> -->
+    </tr>
+    <tr>
+      <td>Arko</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 3, Col 1</td>
+        <td>Row 3, Col 2</td>
+        <td>Row 3, Col 3</td> -->
+    </tr>
+  </table>
+  <!-- ----------------------------- -->
+  <table border="">
+    <caption>
+      Table with examples of attrubute 'colspan'. The horizontal span of cell.
+    </caption>
+    <colgroup>
+      <col span="1" style="background-color: cyan;">
+      <col span="2" style="background-color: red;">
+    </colgroup>
+    <!-- tr: Table row  -->
+    <tr>
+      <!-- th : Table head  -->
+      <th colspan="2">Name</th>
+      <th>Class</th>
+      <th>Year</th>
+      <!-- <th>Row 1, Col 1</th>
+        <th>Row 1, Col 2</th>
+        <th>Row 1, Col 3</th> -->
+    </tr>
+    <tr>
+      <!-- td: Table data -->
+      <td>Pratham</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 2, Col 1</td>
+        <td>Row 2, Col 2</td>
+        <td>Row 2, Col 3</td> -->
+    </tr>
+    <tr>
+      <td>Arko</td>
+      <td>12</td>
+      <td>2023</td>
+      <!-- <td>Row 3, Col 1</td>
+        <td>Row 3, Col 2</td>
+        <td>Row 3, Col 3</td> -->
+    </tr>
+  </table>
+
+  <table border="1">
+    <caption>
+      Superheros and sidekicks
+    </caption>
+    <colgroup>
+      <col />
+      <col span="2" class="batman" />
+      <col span="2" class="flash" />
+    </colgroup>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Batman</th>
+        <th scope="col">Robin</th>
+        <th scope="col">The Flash</th>
+        <th scope="col">Kid Flash</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Skill</th>
+        <td>Smarts, strong</td>
+        <td>Dex, acrobat</td>
+        <td>Super speed</td>
+        <td>Super speed</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>

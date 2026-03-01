@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+
+<body>
+    <!-- <form action="3. Images.html"> -->
+    <form action="">
+        <!-- input that has required tag mandatory to be filled inorder to proceed -->
+        <label for="fname">Enter your First name: </label>
+        <input placeholder="Please enter your name" id="fname" value="" name="fname" minlength="5" maxlength="12" required />
+        
+        
+        <!-- Has a default value in input (can be modified if 'disable' attribute not used) -->
+        <label for="mname">Enter your middle name: </label>
+        <input id="mname" minlength="5" maxlength="12" value="Kumar" />
+        
+        
+        <!-- Inaccessible input  -->
+        <label for="lname">Enter your Last name: </label>
+        <input id="lname" minlength="5" maxlength="12" disabled />
+        
+        
+        <!-- Numerical input  -->
+        <br /> <br />
+        <label>Enter your Age: </label>
+        <input type="number" max="200" />
+        
+        
+        <!-- E-mail input  -->
+        <br /> <br />
+        <label>Enter your E-mail: </label>
+        <input type="email" />
+        
+        
+        <!-- Date input  -->
+        <br /> <br />
+        <label>Date of Enrollment: </label>
+        <input type="date" />
+        
+        
+        <!-- Password -->
+        <br /> <br />
+        <label>Password </label>
+        <input type="password" name="pwd"/>
+        
+        
+        <!-- Radio Buttons - Suitable for choosing anyone -->
+        <!-- Remember to assign values aswell -->
+        <br /> <br />
+        <p>Enter the T-Shirt size:</p>
+        <input type="radio" name="tshirtsize" id="small" value="small"/> <label for="small">Small</label>
+        <input type="radio" name="tshirtsize" id="medium" value="medium" /> <label for="medium">Medium</label>
+        <input type="radio" name="tshirtsize" id="large" value="large"/> <label for="large">Large</label>
+
+
+        <!-- Check boxes - Suitable for multiple checked -->
+        <br /> <br />
+        <label for="C">C</label> 
+        <input type="checkbox" name="plang" id="C" value="c" checked disabled>
+        <label for="JavaScript">JavaScript</label>
+        <input type="checkbox" name="plang" id="JavaScript"  value="javascript">
+        <label for="Python3">Python3</label>
+        <input type="checkbox" name="plang" id="Python3" value="python3">
+        
+        
+        <!-- Color selector  -->
+        <br /> <br />
+        <label for="clr">Select a color</label>
+        <input type="color" id="clr">
+        
+        
+        <!-- dropdown menu kinda  -->
+        <br /> <br />
+        <label for="pdropdown">Select payment method: </label>
+        <select name="payment" id="pdropdown">
+            <option value="none"></option>
+            <option value="Gpay">gPay</option>
+            <option value="NetB">Net Banking</option>
+            <option value="COD">Cash on delivery</option>
+        </select>
+        
+        
+        <!-- Input for larger texts -->
+        <br /> <br />
+        <label for="feedbackTxt">Please give your feedback:</label>
+        <textarea placeholder="Please enter your valuable feedback." cols="50" rows="20" name=""
+            id="feedbackTxt"></textarea>
+        
+        
+            <!-- Reset button to reset all the user entries -->
+        <br /> <br />
+        <input type="reset" value="Reset feilds">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

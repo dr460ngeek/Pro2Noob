@@ -1,0 +1,56 @@
+/* 
+Selector Syntax
+selectorType{
+    propertyKey : propertyValue;
+}
+*/
+
+/* ------------------------------------------------- */
+
+/* 1. Element Selector */
+/* p {
+    color: red;
+} 
+
+h2 {
+    color: white;
+    background-color: black;
+} */
+
+/* ------------------------------------------------- */
+
+/* 2. ID Selector  */
+/* Prefix for ID is # */
+/* 
+#p1id {
+    font-family: monospace;
+    
+}
+
+#pid {
+    font-family: 'Times New Roman', Times, serif;
+} */
+
+#pId, #p1Id, .highlighter, p {
+    color: red  ;
+}
+
+/* ------------------------------------------------- */
+
+/* 3. Class Selector */
+
+.p1Class {
+    color: red;
+}
+
+.highlighter {
+    background-color: yellow;
+}
+
+.headingStyles {
+    font-size: large;
+    color: red;
+}
+
+
+/* ------------------------------------------------- */
