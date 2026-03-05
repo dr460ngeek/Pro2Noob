@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Selectors</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!--
         Types of selectors:
         1. Elements Selectors
         2. ID Selectors
         3. Class Selectors
-        4. Universal Selectors
-        5. Direct Child Selectors
-        6. Decendant Selectors
+        4. Nested Selectors
+        5. Universal Selectors
+        6. Direct Child Selectors
+        7. Decendant Selectors
     -->
     <header>
-        <h1>Element Selectors</h1>
+        <h1>Selectors</h1>
     </header>
     <main>
-        <article>
+        <article id="selectorsHead">
             <h2>Element Selectors</h2>
-            <p id="p1id" class="highlighter">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident nam sit error quam ipsa exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo optio fuga praesentium a incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!</p>
+            <p id="p1id" class="highlighter">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident
+                nam sit error quam ipsa exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo
+                optio fuga praesentium a incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!
+            </p>
         </article>
-        <article>
+
+        <article id="idSel">
             <h2>ID Selectors</h2>
-            <p id="pid">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident nam sit error quam ipsa exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo optio fuga praesentium a incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!</p>
+            <p id="pid">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident nam sit error quam
+                ipsa exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo optio fuga
+                praesentium a incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!</p>
         </article>
-        <article>
+
+        <article id="classSel">
             <h2 class="highlighter headingStyles">Class Selectors</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident nam sit error quam ipsa exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo optio fuga praesentium a incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi provident nam sit error quam ipsa
+                exercitationem excepturi ratione sint! Perspiciatis, harum! Quasi facilis nemo optio fuga praesentium a
+                incidunt earum maiores quod, dolorem non velit at! Possimus, rerum officiis!</p>
         </article>
+
+        <article id="nestedSel">
+            <h2>Nested Selectors</h2>
+            <p id="nestedId" class="nestedClass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla
+                facere fuga odit ducimus cupiditate aliquam eveniet iusto. Tempora quaerat, natus facilis eum eius iure
+                aperiam ducimus sed laborum fuga exercitationem repudiandae laboriosam repellat reprehenderit enim ea
+                molestiae possimus! Rerum fugit nihil tenetur autem.</p>
+        </article>
+
+        <article id="decendantSel">
+            <h2>Decendant Selectors</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla facere fuga odit ducimus cupiditate
+                aliquam eveniet iusto. Tempora quaerat, natus facilis eum eius iure aperiam ducimus sed laborum fuga
+                exercitationem repudiandae laboriosam repellat reprehenderit enim ea molestiae possimus! Rerum fugit
+                nihil tenetur autem.</p>
+            <section>
+                <!-- CSS Rules to be applied for only paragraphs under this particular section.  -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+            </section>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla facere fuga odit ducimus cupiditate
+                aliquam eveniet iusto. Tempora quaerat, natus facilis eum eius iure aperiam ducimus sed laborum fuga
+                exercitationem repudiandae laboriosam repellat reprehenderit enim ea molestiae possimus! Rerum fugit
+                nihil tenetur autem.</p>
+        </article>
+        <article id="dircSel">
+            <h2>Direct Child Selectors</h2>
+            <!-- CSS only to be applied for paragraphs outside section element only.  -->
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla facere fuga odit ducimus cupiditate
+                aliquam eveniet iusto. Tempora quaerat, natus facilis eum eius iure aperiam ducimus sed laborum fuga
+                exercitationem repudiandae laboriosam repellat reprehenderit enim ea molestiae possimus! Rerum fugit
+                nihil tenetur autem.</p>
+            <section>
+                <!-- Paragraphs under this sections to be ignored. -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, asperiores!</p>
+            </section>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla facere fuga odit ducimus cupiditate
+                aliquam eveniet iusto. Tempora quaerat, natus facilis eum eius iure aperiam ducimus sed laborum fuga
+                exercitationem repudiandae laboriosam repellat reprehenderit enim ea molestiae possimus! Rerum fugit
+                nihil tenetur autem.</p>
+        </article>
+
     </main>
 </body>
+
 </html>

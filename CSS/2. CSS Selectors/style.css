@@ -1,5 +1,6 @@
 /* 
 Selector Syntax
+
 selectorType{
     propertyKey : propertyValue;
 }
@@ -31,15 +32,11 @@ h2 {
     font-family: 'Times New Roman', Times, serif;
 } */
 
-#pId, #p1Id, .highlighter, p {
-    color: red  ;
-}
-
 /* ------------------------------------------------- */
 
 /* 3. Class Selector */
-
-.p1Class {
+/* Prefix for Class is . */
+/* .p1Class {
     color: red;
 }
 
@@ -50,7 +47,70 @@ h2 {
 .headingStyles {
     font-size: large;
     color: red;
+} */
+/* ------------------------------------------------- */
+
+/* 
+    Specificity order 
+        ID >> Class >> Element    
+
+#nestedId {
+    color: red;
 }
+
+.nestedClass {
+    color: blue;
+}
+
+p {
+    color: yellow;
+}
+*/
 
 
 /* ------------------------------------------------- */
+
+/* 4. Nested Selectors */
+
+/* #pId, #p1Id, .highlighter, p {
+    color: red  ;
+} */    
+
+/* ------------------------------------------------- */
+
+/* 5. Universal Selector  */
+
+/* * {
+    font-family: 'Courier New', Courier, monospace;
+    color: green;
+} */    
+
+/* ------------------------------------------------- */
+
+/* 6. Decendant Selector */
+
+/* (parent: #id/.class/element) (child) {
+
+} */
+
+/* #decendantSel p {
+    color: red;
+} */
+
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+
+/* 7. Direct Child Selector  */
+
+#dircSel > p {
+    color: red;
+}
+
+#dircSel > section > p{
+    color: yellow;
+}
+
+/* This rule wouldn't be applied to the p under dircSel because above specificity wins. Separate rule required to be made */
+p:hover {
+    color: green;
+}
