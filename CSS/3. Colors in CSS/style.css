@@ -1,0 +1,24 @@
+body {
+    font-size: 28px; /* Units discussed in-detailed in '4. Units' */
+    font-family: cursive;
+    text-align: center;
+    /* RGB stands for Red(0-255) Green(0-255) Blue(0-255) */
+    /* In rgbA, a stands for Alpha(0-1) also known as transparency/opacity. */
+    /* Prefix for Hexadecimal values is # followed by value. */
+    /* HSLA - Hue(0-360), Saturation(0-360), Lightness(0-360), Alpha(0-1) */
+    color: #AFF9C9;
+    background-color: #317B22;
+    padding: 45px;
+    margin: 45px;
+}
+
+article {
+    background-color: #2A4D14;
+    color: #7CF0BD;
+    padding: 45px;
+    margin: 45px;
+    font-size: 16px;
+    border-radius : 5%;
+}
+/* webiam.org - good for checking the readability. */ 
+/* coolors.co - good for overal color related things.*/
