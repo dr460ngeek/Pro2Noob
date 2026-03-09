@@ -6,13 +6,31 @@ main {
     /* for a straight line  */
     border: 4px solid red;
     /* border-radius: 5%; */
+    /* % is relative to the size of the element's immediate parent container */
     width: 50%;
-    padding: 2px;
+    /* relative to the full dimensions of the browser window (the viewport), regardless of the parent element's size. */
+    /* width: 50vw; */
     /* %, vw(view-width), vh(view-height), em, rem */
 }
+/* html {
+    font-size: 1em;
+}*/
 
 section {
     border: 4px dotted green;
-    padding: 2px;
+    /* height: 150vh; */
+    width: 70vw;
+}
 
+body {
+    font-size: 2em;
+}
+
+header {
+    font-size: 2em;
+}
+
+h2 {
+    /* font-size: 30px; */
+    font-size: 4rem;
 }

@@ -150,9 +150,9 @@ Relative to the **root element line height**.
 
 # 3. Percentage Unit
 
-| Unit | Meaning                    |
-| ---- | -------------------------- |
-| `%`  | Relative to parent element |
+| Unit | Meaning                        |
+| ---- | -------------------------------|
+| `%`  | **Relative to parent element** |
 
 Example
 
@@ -191,6 +191,13 @@ If screen width is **1200px**
 ```
 50vw = 600px
 ```
+
+---
+
+### The difference between vh/vw and % (Layman's language):
+vh/vw: Relative to the full **dimensions of the browser window** (the viewport), **regardless of the parent element's size**.
+
+%: Relative to the dimensions of the **parent element**.
 
 ---
 
