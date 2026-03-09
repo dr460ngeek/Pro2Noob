@@ -1,5 +1,3 @@
----
-
 # CSS Specificity (Beginner Documentation)
 
 ## 1. What is CSS Specificity?
