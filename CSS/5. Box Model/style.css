@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box2 {
+    padding: 60px;
+} 
+
+div {
+    border: 12px solid greenyellow;
+    /* padding: all the side same; */
+    /* padding: 35px; */
+    /* padding: top&bottom right&left; */
+    padding: 10px 40px;
+    /* padding: top right bottom left; clock wise*/
+    /* padding: 34px 40px 45px 50px; */
+    margin: 10px 40px;
+    width: 250px;
+    height: 250px;
+}
