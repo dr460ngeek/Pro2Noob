@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double+Ink:wght@100..900&display=swap');
+
+
+.cyberpunk {
+  font-family: "Bitcount Grid Double Ink", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0,
+    "SZP1" 0,
+    "SZP2" 0,
+    "XPN1" 0,
+    "XPN2" 0,
+    "YPN1" 0,
+    "YPN2" 0;
+}
+
+/* h1 {
+    /* color: palevioletred; */
+    /* background-color: darkslategray; */
+    /* text-decoration: underline; */
+    /* text-decoration-style: wavy; */
+    /* text-decoration-color: red; */
+    /* text-shadow: [verticle-distance(x-axis)] [horizontal-distance(y-axis)] [blur] [color]; */
+    /* text-shadow: 1px 1px 1px grey; */
+} */
+
+p {
+    /* text-align: justify; */
+    /* Adds a space before starting of text */
+    /* text-indent: 2px;  */
+    /* space between letters  */
+    letter-spacing: 1px;
+    /* adjust horizontal space between each line  */
+    line-height: 1em;
+    /* space between words */
+    word-spacing: 2px;
+    
+}
