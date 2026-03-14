@@ -1,0 +1,58 @@
+.container {
+    width: 600px;
+    height: 600px;
+    background-color: whitesmoke;
+    margin: 100px;
+    /* IN CASE THERE IS NO PARENT ELEMENT WITH RELATIVE PROPERTY, ABSOLUTE DEPENDS ON ROOT ELENENT I.E, HTML */
+    /* position: relative; */
+    
+}
+
+.box {
+    color: white;
+    width: 100px;
+    height: 100px;      
+}
+
+.static {
+    position: static;
+    border-radius: 10px;
+    background-color: lightblue;
+}
+
+.rel {
+    background-color: skyblue;
+    border-radius: 10px;
+    position: relative;
+    top: 50px;
+    /* left: 100px; */
+    z-index: 1;
+}
+
+.abs {
+    background-color: aqua;
+    position: absolute;
+    border-radius: 10px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 1;
+}
+
+.fix {
+    background-color: blue;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.sti {
+    background-color: darkblue;
+    border-radius: 10px;
+    position: sticky;
+    top: 30px; /* to start from the distance from its top and end till element ends. */
+}
+
+.blankspace {
+    height: 400vh;
+}
