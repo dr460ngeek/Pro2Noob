@@ -1,0 +1,48 @@
+.container {
+    /* border: 2px solid green; */
+    /* height: 400px; */
+    /* width: 400px; */
+    text-align: justify;
+    /* to hide the overflow  */
+    /* overflow: hidden; */
+    /* to get a scroller bar  */
+    /* overflow: scroll; */
+    /* overflow: auto; */
+    
+}
+
+img {
+    margin: 5px;
+}
+
+.subContainer {
+    /* Not a dynamic or recomended */
+    /* height: 40vh; */
+    overflow: auto;
+}
+
+.img1 {
+    float: right;
+}
+
+.img2 {
+    float: left;
+}
+
+.subContainer > p {
+    clear: right;
+}
+
+.subContainer2 > p {
+    clear: right; 
+}
+
+/*----------------  Sulaimani keeda!!  ---------------*/
+
+.expsubCont {
+    float: left;
+}
+
+.expsubCont2 {
+    clear: both;
+}
