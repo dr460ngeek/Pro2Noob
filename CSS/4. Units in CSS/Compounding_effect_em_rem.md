@@ -14,11 +14,11 @@ Example:
 }
 
 .child {
-  font-size: 2em;
+  font-size: 2em; /* 20px x 2 = 40px*/
 }
 
 .grandchild {
-  font-size: 2em;
+  font-size: 2em; /* 20px x 2 = 40px x 2 = 80px*/
 }
 ```
 
