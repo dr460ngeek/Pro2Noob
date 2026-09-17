@@ -9,7 +9,7 @@
 }
 
 .box {
-    color: white;
+    color: mintcream;
     width: 100px;
     height: 100px;      
 }
@@ -50,7 +50,7 @@
     background-color: darkblue;
     border-radius: 10px;
     position: sticky;
-    top: 30px; /* to start from the distance from its top and end till element ends. */
+    top: 10px; /* to start from the distance from its top and end till element ends. */
 }
 
 .blankspace {

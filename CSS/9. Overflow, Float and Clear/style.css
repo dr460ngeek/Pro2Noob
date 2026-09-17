@@ -16,33 +16,28 @@ img {
 }
 
 .subContainer {
-    /* Not a dynamic or recomended */
+    /* Not a dynamic or not-recomended */
     /* height: 40vh; */
+    /* overflow: auto; */
+}
+
+.subContainer2{
+    /* height: 200px; */
     overflow: auto;
 }
 
 .img1 {
-    float: right;
+    float: both;
 }
 
 .img2 {
-    float: left;
+    float: both;
 }
 
 .subContainer > p {
-    clear: right;
+    /* clear: right; */
 }
 
 .subContainer2 > p {
-    clear: right; 
-}
-
-/*----------------  Sulaimani keeda!!  ---------------*/
-
-.expsubCont {
-    float: left;
-}
-
-.expsubCont2 {
-    clear: both;
+    /* clear: left;  */
 }
