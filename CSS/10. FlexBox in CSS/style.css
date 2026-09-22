@@ -1,0 +1,87 @@
+/* CSS Reset*/
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    border: 2px dotted red;
+    height: 400px;
+    
+    /* Flex-Box: this container is a flexbox now.*/
+    display: flex; 
+    
+    /* (by default) (order: left-to-right) (starts from the left-corner) */
+    /* flex-direction: row;  */
+    /* (order: right-to-left) (starts from the right-corner) */
+    /* flex-direction: row-reverse;  */
+    /* column - order: (top-to-bottom) (starts from the top-end) */
+    /* flex-direction: column;  */
+    /* column-reverse - order: bottom-to-top) (starts from the bottom-end) */
+    /* flex-direction: column-reverse;  */
+
+    /* Gets the content to the next line. */
+    /* flex-wrap: wrap; */
+    /* reverse effect of above "wrap". */
+    /* flex-wrap: wrap-reverse;  */
+
+    /* Short-hand operator for both flex-wrap and flex-direction */
+    flex-flow: wrap row;
+    
+    /* creates vertical gaps */
+    /* column-gap: 10px; */
+    /* creates horizontal gaps */
+    /* row-gap: 10px; */
+    /* can be used to give gaps in between if using flex-box. Short-hand operator for row-gap and column-gap. */
+    /* gap: 10px; */
+
+    /* (default) start the content from extreme left hand side. */
+    /* justify-content: flex-start; */
+    /* starts the content from extreme right hand side. */
+    /* justify-content: flex-end; */
+    /* starts the content from extreme right hand side. */
+    /* justify-content: center; */
+    /* space between items are given */
+    justify-content: space-around;
+    /* space between items are given and ends evenly. */
+    /* justify-content: space-evenly; */
+    /* space between items are given evenly. */
+    /* justify-content: space-between; */
+
+    /* aligns items from the start/top of the screen. */
+    align-items: flex-start;
+    /* aligns items from the end/bottom of the screen. */
+    /* align-items: flex-end; */
+    /* aligns items to the center of the screen. */
+    align-items: center;
+    /* stretches the items height till parent's height or inherits parent's height*/
+    /* align-items: stretch; */
+    /* aligns content (Incomplete or unimportant. If required, do readme2.md) */
+    align-content: center;
+    align-self: flex-start;
+
+
+    
+}
+
+.box {
+    border: 2px solid green;
+    /* margin: 10px 0; */
+    /* width: 100px; */
+    /* each box takes 25% of the screen  */
+    flex-basis: 25%;
+
+}
+
+#box-1 {
+    order: 1;
+    /* takes up comparitively more space compared to other childrens */
+    /* flex-grow: 1; */
+    flex-shrink: 2;
+}
+
+#box-4 {
+    order: 5;
+    flex-shrink: 4;
+}
