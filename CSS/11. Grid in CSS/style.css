@@ -5,6 +5,50 @@
 }
 
 .container {
+    /* Grid parent properties  */
     border: 1px dotted red;
-    display:grid;
+    height: 700px;
+    display: grid;
+    /* gap: 10px; */
+    row-gap: 18px;
+    column-gap: 6px;
+    /* grid-template-columns: column1 column2 column3; */
+    grid-template-columns: 200px 200px 200px;
+    /* grid-template-rows: row1 row2 row3; */
+    /* grid-template-rows: 100px 200px 250px; */
+    /* ignores the above code and allocates width/height to all the rest left rows */
+    /* grid-auto-rows: 150px; */
+    /* justify-content also works similarly with grid. refer to flexbox notes (except flex-end, flex-start and other properties specific to flexbox). */
+    /* justify-content: center; */
+
+    /* align-content: center; */
+}
+
+.box {
+    border: 2px solid green;
+    padding: 12px;
+}
+
+#box-1 {
+    /* Grid child properties  */
+    background-color: bisque;
+    /* By default: stretch */
+    /* justify-self: stretch; */
+    /* By default: stretch */
+    /* align-self: stretch; */
+
+    /* numbering is always n+1  */
+    /* grid-column-start: 1; */
+    /* grid-column-end: -1; */
+    /* shorthand operator for above 2 codes  */
+    /* grid-column: start / end; */
+    /* grid-column: 1 / 2  ; */
+    /* grid-row-start: 1; */
+    /* grid-row-end: 5; */
+    /* shorthand operator for above 2 codes  */
+    /* grid-row: 1 / 1; */
+
+    /* teacher is high on weed maybe so he explains about span now.. in this method no n+1 is required. can be written directly.. */
+    /* grid-row: 1 / span 3; */
+    /* shorthand operator for grid-column and grid-row. grid-area: (row,start)/(column,start)/(row,end)/(column,end); */
 }
