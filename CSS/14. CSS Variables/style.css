@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* For colors */
+    --backg-color: aqua;
+    --primary-text-color: red;
+    --secondary-text-color: #444;
+    --card-color: #FEFCFF;
+    /* For fixed measurements */
+    --spacing-for-margin-padding: 20px; 
+}
+
+.dark {
+        /* For colors */
+    --backg-color: grey;
+    --primary-text-color: white;
+    --secondary-text-color: #444;
+    --card-color: #FEFCFF;
+}
+
+.container {
+    padding: 45px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-text-color);
+}
+
+h2 {
+    background-color: var(--backg-color);
+    border-radius: 12px 12px 0px 0px;
+    color: var(--primary-text-color);
+    text-align: center;
+}
+
+h4 {
+    background-color: var(--backg-color);
+    color: var(--primary-text-color);
+    text-align: center;
+}
+
+
+.box {
+    padding: 0px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: var(--card-color);
+}
+.box p {
+    color: var(--secondary-text-color);
+    margin: 5px;
+}
