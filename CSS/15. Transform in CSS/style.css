@@ -1,0 +1,67 @@
+.outer-container {
+    width: 400px;
+    height: 400px;
+    background-color: blueviolet;
+    margin: 100px auto;
+}
+
+.inner-container {
+    width: 200px;
+    height: 200px;
+    background-color: brown;
+    color: white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    /* scale */
+    /* (x axis) */
+    /* transform: scale(1.5); */
+    /* transform: scaleX(1.5); */
+    /* (y axis) */
+    /* transform: scaleY(2); */
+    /* (x and y axis respectively) */
+    /* transform: scale(1.5, 2); */
+    
+    /* skew */
+    /* transform: skewX(x deg); */
+    /* (x axis) */
+    /* transform: skew(x deg); */
+    /* (y axis) */
+    /* transform: skewY(y deg); */
+    /* (x and y axis respectively) */
+    /* transform: skew(x deg, y deg); */
+    
+    /* translate */
+    /* (x axis) */
+    /* transform: translate(20px); */
+    /* transform: translateX(20px); */
+    /* (y axis) */
+    /* transform: translateY(20px); */
+    /* (x and y axis respectively) */
+    /* transform: translate(20px 20px); */
+    
+    /* rotate */
+    /* transform: rotateX(x deg); */
+    /* (x axis) */
+    /* transform: rotate(x deg); */
+    /* (y axis) */
+    /* transform: rotateY(y deg); */
+    /* (x and y axis respectively) */
+    /* transform: rotate(x deg, y deg); */
+
+    /* short-hand for all the above 3 */
+    /* transform: rotate() scale() skew() translate(); */
+
+    /* shifting the origin  */
+    /* transform: rotate(20deg); */
+    transform-origin: top left;
+    /* transform-origin: x-axis y-axis z-axis; */
+    transform-origin: 40% 20%;
+
+    transition: 0.6s ease;
+}
+
+.inner-container:hover {
+    transform: rotate(70deg);
+}
