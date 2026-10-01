@@ -27,7 +27,7 @@
     /* flex-wrap: wrap-reverse;  */
 
     /* Short-hand operator for both flex-wrap and flex-direction */
-    flex-flow: wrap row;
+    flex-flow: column;
     
     /* creates vertical gaps */
     /* column-gap: 10px; */
@@ -70,18 +70,19 @@
     /* margin: 10px 0; */
     /* width: 100px; */
     /* each box takes 25% of the screen  */
-    flex-basis: 25%;
-
+    
 }
 
 #box-1 {
+    flex-basis: 20%;
     order: 1;
     /* takes up comparitively more space compared to other childrens */
-    /* flex-grow: 1; */
-    flex-shrink: 2;
+    /* flex-grow: 3; */
+    /* flex-shrink: 2; */
 }
 
 #box-4 {
-    order: 5;
-    flex-shrink: 4;
+    order: 2;
+    /* flex-shrink: 2; */
+    /* flex-shrink: 4; */
 }

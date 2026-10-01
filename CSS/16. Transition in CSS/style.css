@@ -1,0 +1,56 @@
+.box {
+    border-radius: 15%;
+    width: 200px;
+    height: 200px;
+    margin: 100px auto;
+    background-color: blue;
+    /* transition: 1s; */
+    
+    /* Duration of the transition */
+    transition-duration: 2s;
+    /* Explicitly specify the properties */
+    transition-property: border-radius, background-color, transform;
+    /* waits for specified time */
+    /* transition-delay: 0.5s; */
+    /* slow start -> increase speed -> slow end*/
+    /* transition-timing-function: ease; */
+    /* slow start -> rest all fast */
+    /* transition-timing-function: ease-in; */
+    /* rest all fast -> slow end   */
+    /* transition-timing-function: ease-out; */
+    /* fast start -> slow speed -> fast end */
+    /* transition-timing-function: ease-in-out; */
+    transition-timing-function: linear;
+}
+
+.box:hover {
+    background-color: darkblue;
+    border-radius: 40%;
+    transform:rotate(45deg);
+}
+
+/* ------------------------------------ */
+
+nav {
+    background-color: black;
+}
+
+.list {
+    list-style: none    ;
+    display: flex;
+    gap: 20px;
+}
+
+.items {
+    font-size: 1.2rem ;
+    color: black;
+    transition: 1s ease;
+}
+
+.items:hover {
+    color: white;
+    background-color: black;
+    padding: 3px;
+    cursor: pointer;
+    transform: translateY(-12px);
+}
