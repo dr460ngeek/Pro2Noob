@@ -10,17 +10,24 @@
     transition-duration: 2s;
     /* Explicitly specify the properties */
     transition-property: border-radius, background-color, transform;
-    /* waits for specified time */
-    /* transition-delay: 0.5s; */
+    /* type of transition */
     /* slow start -> increase speed -> slow end*/
     /* transition-timing-function: ease; */
+
+
     /* slow start -> rest all fast */
     /* transition-timing-function: ease-in; */
     /* rest all fast -> slow end   */
     /* transition-timing-function: ease-out; */
     /* fast start -> slow speed -> fast end */
     /* transition-timing-function: ease-in-out; */
-    transition-timing-function: linear;
+    /* transition-timing-function: linear; */
+
+    
+    /* waits for specified time */
+    /* transition-delay: 0.5s; */
+
+    /* short-hand: transition: (transition-property) (time) (timing-funtion) (delay); */
 }
 
 .box:hover {
