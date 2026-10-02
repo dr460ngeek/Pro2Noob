@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+body {
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 280px;
+    height: 280px;
+    border: 1px solid white;
+    /* short-hand: animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation: orbit 4s linear 0s infinite normal;
+    border-radius: 50%;
+}
+
+.box {
+    border-radius: 50%;
+    width:80px;
+    height: 80px;
+    background-color: #4285F4;
+    /* transition: 1s ease-in; */
+
+    /* Specify the name of animation to apply (if any created) */
+    animation-name: orbit;
+
+    /* Duration of the animation */
+    animation-duration: 2s;
+    /* No. of times the animation must happen. */
+    /* animation-iteration-count: infinite; */
+    /* Delay before starting the animation */
+    /* animation-delay: 1s; */
+    
+    /* The types of cycle in animations (reverse, alternate, etc.. */
+    /* animation-direction: normal; */
+
+    /* Speed of the animation per move. */
+    /* animation-timing-function: ease-in-out; */
+    
+    /* Post animation (backwards, forewards, both, none, etc..*/
+    animation-fill-mode: forwards;
+}
+
+/* .box:hover {
+    transform: translate(200px);
+} */
+
+@keyframes orbit {
+    from{
+        transform: rotate(0)
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slide-in{
+    0%{
+        transform: translateX(-200px);
+    }
+    100%{
+        transform: translateX(200px)
+    }
+}
+
+@keyframes shiftTheBox {
+    0%, 100%{
+        /* initial stage */
+        transform:translate(0, 0);
+        background-color: #4285F4;
+        /* border-radius: 15px; */
+    }
+    25%{
+        transform: translate(200px, 0);
+        background-color: #EA4335;
+        border-radius: 25%;
+    }
+    50%{
+        background-color: #FBBC05;
+        transform: translate(200px, 200px);
+        border-radius: 50%;
+    }
+    75%{
+        background-color: #34A853;
+        transform:  translate(0, 200px);
+        border-radius: 25%;
+    }
+}
+
+/* LOADER */
+
+.loader {
+    padding: 10px;
+    border-radius: 25px;
+    border: 2px solid white;
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    animation: loader 0.5s ease-in-out 0s infinite alternate;
+}
+
+.dot:nth-child(even){
+    animation-delay: 0.2s;
+}
+
+@keyframes loader {
+    from {
+        transform: translateY(-4px);
+    }
+    to{
+        transform: translateY(4px);
+    }
+}
