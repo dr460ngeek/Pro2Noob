@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Variables and Data Types — Part 1</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--danger:#c0392b;--dbg:#fbe9e6;--ok:#2f6f4f;--okbg:#e4f3ea}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--danger:#ef8a7c;--dbg:#3b2623;--ok:#7fcaa0;--okbg:#1f3a2b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0;white-space:pre-wrap}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.fix{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:10px 14px;margin:12px 0}
+.fix b{color:var(--danger);font-weight:600}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600}
+.fn{fill:none;stroke:var(--muted)}.bl{fill:var(--accent-bg);stroke:var(--accent)}.pl{fill:var(--card);stroke:var(--muted)}.pv{fill:var(--dbg);stroke:var(--danger)}
+.ctl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+#rs{font:13px ui-monospace,Menlo,Consolas,monospace;border-radius:8px;padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Variables and Data Types — Part 1</h1>
+<p class="mm">Mental model: a variable is a labeled box holding a value. The keyword (<code>let</code>, <code>const</code>, <code>var</code>) decides what you can do to the label, and where it can be seen.</p>
+
+<h2>1. Data types: string, number, boolean</h2>
+<pre><code>let name = "Rohan";         // string: text in quotes
+let age = 28;               // number
+let eligibleToVote = true;  // boolean: true / false</code></pre>
+<p>Number is 64-bit floating point, so it covers integers and decimals. Special values: <code>NaN</code> ("not a valid number", but its type is still number) and <code>Infinity</code>. Check any type with <code>typeof age</code>.</p>
+<div class="fix"><b>Corrections</b>
+<ul>
+<li><code>let age = "28"</code> is a string, because the quotes make it text. <code>"28" + 2</code> gives <code>"282"</code>, while <code>28 + 2</code> gives <code>30</code>.</li>
+<li>"floating pint" should be "floating point".</li>
+</ul></div>
+<p class="mm">Quotes = string. No quotes = number or boolean.</p>
+
+<h2>2. Statements and console.log</h2>
+<ul>
+<li><code>;</code> ends a statement. It's optional because JS inserts it for you, but keep it: a line starting with <code>(</code> or <code>[</code> can break without it. Your note called it a "separator", but it's a terminator.</li>
+<li>Indentation is only for humans.</li>
+<li><code>console.log(a, b)</code> prints each argument separated by a space.</li>
+<li><code>console.log(sum)ff;</code> had stray characters and is a syntax error. Removed.</li>
+</ul>
+
+<h2>3. let, const, var</h2>
+<pre><code>let a = 1;  a = 2;        // ✅ reassign
+const b = 1; b = 2;       // ❌ TypeError
+var c = 1;  var c = 2;    // ✅ even redeclare (messy)</code></pre>
+<div class="fix"><b>Corrections</b>
+<ul>
+<li><code>const</code> isn't "immutable". The variable can't be reassigned, but an object or array it holds can still change.</li>
+<li>In the <code>const</code> example, the reassignment throws a <code>TypeError</code> before <code>console.log</code> runs, so nothing prints, not "Pratham".</li>
+<li><code>collage</code> vs <code>college</code> is a typo. Assigning to an undeclared name creates an accidental global in normal mode.</li>
+</ul></div>
+<p>Use <code>const</code> by default, <code>let</code> when you must reassign, and avoid <code>var</code>.</p>
+<p class="mm">const = a tag glued to a value. let = a tag you can move. var = an old tag with loose rules.</p>
+
+<p>Try each keyword:</p>
+<div class="ctl">
+<label>keyword<select id="kw"><option>let</option><option>const</option><option>var</option></select></label>
+<label>action<select id="ac"><option value="re">reassign</option><option value="rd">redeclare same name</option><option value="out">read outside block</option></select></label>
+</div>
+<pre id="cd"></pre>
+<div id="rs"></div>
+
+<h2>4. Scope: where a variable can be seen</h2>
+<p><code>let</code> and <code>const</code> are block-scoped: they live inside the nearest <code>{ }</code>. <code>var</code> is function-scoped: it ignores blocks and only respects the function wall. Your note said <code>let</code> is "local scope", which is too vague. Block scope is the precise term.</p>
+<pre><code>function f() {
+  if (true) { let a = 1; var c = 2; }
+  console.log(c); // 2
+  console.log(a); // ReferenceError
+}</code></pre>
+<p class="mm">let and const respect { } walls. var only respects function walls.</p>
+<figure>
+<svg viewBox="0 0 380 240" role="img" aria-label="A function box containing a block box. let and const stay inside the block, var is visible in the whole function.">
+<rect class="fn" x="20" y="20" width="340" height="200" rx="12"/>
+<text class="t" x="36" y="44">function { }</text>
+<text x="36" y="62">var is visible everywhere in here</text>
+<rect class="bl" x="44" y="76" width="292" height="96" rx="8"/>
+<text class="t" x="60" y="98">block { }</text>
+<rect class="pl" x="60" y="116" width="80" height="36" rx="6"/><text class="t" x="100" y="138" text-anchor="middle">let a</text>
+<rect class="pl" x="150" y="116" width="80" height="36" rx="6"/><text class="t" x="190" y="138" text-anchor="middle">const b</text>
+<rect class="pv" x="240" y="116" width="80" height="36" rx="6"/><text class="t" x="280" y="138" text-anchor="middle">var c</text>
+<text x="190" y="200" text-anchor="middle">Outside the block: c works, a and b are not defined</text>
+</svg>
+</figure>
+
+<h2>5. Naming rules</h2>
+<ul>
+<li>Start with a letter, <code>_</code> or <code>$</code>, never a digit. No spaces or hyphens.</li>
+<li>No reserved keywords (<code>let</code>, <code>class</code>, <code>if</code>, and so on).</li>
+<li>Convention is camelCase: <code>eligibleToVote</code>, not <code>EligibleToVote</code>.</li>
+<li>JS is case-sensitive, so <code>name</code> and <code>Name</code> are two different variables.</li>
+</ul>
+<div class="fix"><b>Correction</b>
+<p>Case-sensitivity and redeclaring are separate ideas. What fails is declaring the exact same name twice in the same scope. That's an error for <code>let</code> and <code>const</code>, but <code>var</code> allows it.</p></div>
+
+<h2>Mental model</h2>
+<p>The data type tells you what the value is. The keyword tells you whether the name can be reassigned (<code>let</code> yes, <code>const</code> no) and how far it can be seen (<code>let</code> and <code>const</code> inside a block, <code>var</code> across the function). Pick <code>const</code> first, <code>let</code> if it must change, and skip <code>var</code>.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td>string</td><td>Text in quotes, <code>"28"</code> is not a number</td></tr>
+<tr><td>number</td><td>64-bit float, includes <code>NaN</code> and <code>Infinity</code></td></tr>
+<tr><td>boolean</td><td><code>true</code> or <code>false</code></td></tr>
+<tr><td><code>;</code></td><td>Statement terminator, optional but safer</td></tr>
+<tr><td><code>let</code></td><td>Reassignable, block-scoped</td></tr>
+<tr><td><code>const</code></td><td>Not reassignable (contents can still change), block-scoped</td></tr>
+<tr><td><code>var</code></td><td>Function-scoped, redeclarable, avoid</td></tr>
+<tr><td>naming</td><td>No leading digit, no keywords, camelCase, case-sensitive</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+function up(){
+var k=$('kw').value,a=$('ac').value,code,res,ok=true;
+if(a==='re'){code=k+' x = 1;\nx = 2;\nconsole.log(x);';
+ if(k==='const'){res='TypeError: Assignment to constant variable.';ok=false}else res='2'}
+else if(a==='rd'){code=k+' x = 1;\n'+k+' x = 2;\nconsole.log(x);';
+ if(k==='var')res='2 (no error)';else{res="SyntaxError: Identifier 'x' has already been declared";ok=false}}
+else{code='{\n  '+k+' x = 1;\n}\nconsole.log(x);';
+ if(k==='var')res='1 (var ignores the block)';else{res='ReferenceError: x is not defined';ok=false}}
+$('cd').textContent=code;
+var r=$('rs');r.textContent=(ok?'✓ ':'✗ ')+res;
+r.style.background=ok?'var(--okbg)':'var(--dbg)';
+r.style.color=ok?'var(--ok)':'var(--danger)';
+}
+$('kw').addEventListener('input',up);$('ac').addEventListener('input',up);up();
+</script>
+</body>
+</html>

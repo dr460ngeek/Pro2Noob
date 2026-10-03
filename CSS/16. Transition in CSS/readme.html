@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Transform and Transition — Part 1</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--danger:#c0392b;--ok:#2f6f4f}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--danger:#ef8a7c;--ok:#7fcaa0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent);color:var(--fg)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.fix{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:10px 14px;margin:12px 0}
+.fix b{color:var(--danger);font-weight:600}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.sq{fill:var(--accent-bg);stroke:var(--accent);stroke-width:1}
+.gh{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif;text-anchor:middle}
+.stage{position:relative;height:280px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.ghost{position:absolute;left:calc(50% - 50px);top:90px;width:100px;height:100px;border:1px dashed var(--muted);border-radius:4px}
+#box{position:absolute;left:calc(50% - 50px);top:90px;width:100px;height:100px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent);border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:600}
+#dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--danger);transform:translate(-50%,-50%)}
+.ctl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ctl output{color:var(--fg);font-weight:600}
+select,button{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+button{cursor:pointer}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>CSS Transform and Transition — Part 1</h1>
+<p class="mm">Mental model: <code>transform</code> visually moves, spins, resizes, or slants an element. <code>transition</code> makes that change animate smoothly instead of snapping.</p>
+
+<h2>1. transform: the four functions</h2>
+<p>It changes how an element is drawn, not the layout. The original space stays reserved and neighbours don't move.</p>
+<pre><code>transform: scale(1.5);              /* both axes */
+transform: scale(1.5, 2);           /* x, y */
+transform: translate(20px, 20px);   /* x, y */
+transform: rotate(70deg);           /* spin, clockwise */
+transform: skew(20deg, 10deg);      /* x, y */</code></pre>
+<p>Single-axis versions: <code>scaleX/Y</code>, <code>translateX/Y</code>, <code>skewX/Y</code>.</p>
+<p class="mm">scale = resize, translate = move, rotate = spin, skew = slant.</p>
+<p>Defaults when you pass one value:</p>
+<ul>
+<li><code>scale(1.5)</code> scales both axes, not just x.</li>
+<li><code>translate(20px)</code> moves x only.</li>
+<li><code>skew(20deg)</code> skews x only. <code>skewY</code> is the y axis.</li>
+</ul>
+<div class="fix"><b>Corrections to the class notes</b>
+<ul>
+<li><code>rotate()</code> takes one angle and spins flat on the screen. <code>rotate(x, y)</code> is invalid.</li>
+<li><code>rotateX()</code> and <code>rotateY()</code> are 3D flips, like flipping a card. They are not what <code>rotate()</code> does.</li>
+<li><code>translate(20px 20px)</code> needs a comma.</li>
+<li>Stray characters fixed: <code>display: flex;</code> and <code>rotate(70deg)</code>.</li>
+</ul></div>
+
+<figure>
+<svg viewBox="0 0 380 300" role="img" aria-label="Four squares showing scale, skewX, translate and rotate, each with a dashed outline of the original position">
+<rect class="gh" x="78" y="38" width="44" height="44" rx="4"/>
+<rect class="sq" x="67" y="27" width="66" height="66" rx="4"/>
+<text x="100" y="114">scale(1.5)</text>
+<rect class="gh" x="263" y="38" width="44" height="44" rx="4"/>
+<rect class="sq" x="263" y="38" width="44" height="44" rx="4" transform="translate(285 60) skewX(20) translate(-285 -60)"/>
+<text x="285" y="114">skewX(20deg)</text>
+<rect class="gh" x="78" y="168" width="44" height="44" rx="4"/>
+<rect class="sq" x="98" y="188" width="44" height="44" rx="4"/>
+<text x="110" y="254">translate(20px, 20px)</text>
+<rect class="gh" x="263" y="168" width="44" height="44" rx="4"/>
+<rect class="sq" x="263" y="168" width="44" height="44" rx="4" transform="rotate(30 285 190)"/>
+<text x="285" y="254">rotate(30deg)</text>
+<text x="190" y="284">Dashed = original position</text>
+</svg>
+</figure>
+
+<h2>2. Combining functions</h2>
+<pre><code>transform: translate(20px) rotate(20deg) scale(1.2) skewX(10deg);</code></pre>
+<p><code>transform</code> is not shorthand for separate properties. It is one property that takes a space-separated list of functions. Order matters:</p>
+<pre><code>rotate(45deg) translateX(100px)   /* axis rotated first, so it moves diagonally */
+translateX(100px) rotate(45deg)   /* moves right, then spins in place */</code></pre>
+<p class="mm">Each function changes the element's own axes for the ones after it.</p>
+<p>A second <code>transform</code> declaration replaces the first. It doesn't add to it.</p>
+
+<h2>3. transform-origin</h2>
+<p>The pivot point for rotate, scale, and skew. <code>translate</code> ignores it. Default: <code>50% 50%</code> (center).</p>
+<pre><code>transform-origin: top left;
+transform-origin: 40% 20%;   /* x y, as %, px or keywords */</code></pre>
+<p>A third value (z) exists only for 3D and must be a length, not a percentage. If you set <code>transform-origin</code> twice, the second wins.</p>
+<p class="mm">Origin = the pin you stick through the element before turning it.</p>
+
+<h2>4. transition</h2>
+<pre><code>transition: 0.6s ease;
+/* = transition: all 0.6s ease 0s; */
+/* = property | duration | timing-function | delay */</code></pre>
+<ul>
+<li>Property defaults to <code>all</code>.</li>
+<li>With two times, the first is duration and the second is delay.</li>
+<li>Common timing functions: <code>ease</code> (default), <code>linear</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ease-in-out</code>.</li>
+</ul>
+<p>Put <code>transition</code> on the base rule. That way it animates both into and out of <code>:hover</code>. On <code>:hover</code> alone, it animates in but snaps back. A hover <code>transform</code> replaces the base transform; it doesn't add to it.</p>
+<p>Transition vs animation: a transition is one A to B change triggered by a state change. An animation uses keyframes and can loop on its own.</p>
+<p class="mm">Transition = when this property changes, take 0.6s to get there instead of jumping.</p>
+
+<h2>Try it</h2>
+<p>The red dot is the origin. Rotate the box, then change the origin and swap the order.</p>
+<div class="stage"><div class="ghost"></div><div id="box">box<span id="dot"></span></div></div>
+<div class="ctl">
+<label>rotate: <output id="rv">0deg</output><input type="range" id="rot" min="-180" max="180" step="5" value="0"></label>
+<label>scale: <output id="sv">1.0</output><input type="range" id="sc" min="0.5" max="2" step="0.1" value="1"></label>
+<label>skewX: <output id="kv">0deg</output><input type="range" id="sk" min="-45" max="45" step="5" value="0"></label>
+<label>translateX: <output id="tv">0px</output><input type="range" id="tr" min="-100" max="100" step="10" value="0"></label>
+<label>transform-origin<select id="org"><option>center</option><option>top left</option><option>bottom right</option><option>40% 20%</option></select></label>
+<label>order<select id="ord"><option value="tr">translate, then rotate</option><option value="rt">rotate, then translate</option></select></label>
+</div>
+<div class="row"><label><input type="checkbox" id="tn" checked> transition: 0.6s ease</label><button id="reset" type="button">Reset</button></div>
+<pre id="code"></pre>
+
+<h2>Mental model</h2>
+<p><code>transform</code> decides what happens to the element. <code>transform-origin</code> decides where it pivots. <code>transition</code> decides how smoothly it gets there. <code>:hover</code> just flips the state, and <code>transition</code> on the base rule smooths the change in both directions.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Property</th><th>Simple meaning</th></tr>
+<tr><td><code>scale()</code></td><td>Resize (1 = same size)</td></tr>
+<tr><td><code>translate()</code></td><td>Move (one value = x only)</td></tr>
+<tr><td><code>rotate()</code></td><td>Spin in 2D, one angle</td></tr>
+<tr><td><code>skew()</code></td><td>Slant (one value = x only)</td></tr>
+<tr><td><code>transform</code></td><td>One property, a list of functions, order matters</td></tr>
+<tr><td><code>transform-origin</code></td><td>Pivot point, default <code>50% 50%</code></td></tr>
+<tr><td><code>transition</code></td><td><code>property duration timing delay</code>, animates changes</td></tr>
+<tr><td><code>:hover</code></td><td>The state you transition to, replaces the base <code>transform</code></td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var box=$('box'),dot=$('dot');
+var org={'center':['50%','50%'],'top left':['0%','0%'],'bottom right':['100%','100%'],'40% 20%':['40%','20%']};
+function up(){
+var r=$('rot').value,s=(+$('sc').value).toFixed(1),k=$('sk').value,t=$('tr').value,o=$('org').value,ord=$('ord').value,tn=$('tn').checked;
+$('rv').textContent=r+'deg';$('sv').textContent=s;$('kv').textContent=k+'deg';$('tv').textContent=t+'px';
+var T='translateX('+t+'px)',R='rotate('+r+'deg)';
+var full=(ord==='tr'?T+' '+R:R+' '+T)+' scale('+s+') skewX('+k+'deg)';
+var tx=tn?'0.6s ease':'none';
+box.style.transformOrigin=o;box.style.transition=tx;box.style.transform=full;
+dot.style.left=org[o][0];dot.style.top=org[o][1];
+$('code').textContent='.box {\n  transform: '+full+';\n  transform-origin: '+o+';\n  transition: '+tx+';\n}';
+}
+['rot','sc','sk','tr','org','ord','tn'].forEach(function(id){$(id).addEventListener('input',up)});
+$('reset').addEventListener('click',function(){$('rot').value=0;$('sc').value=1;$('sk').value=0;$('tr').value=0;$('org').value='center';$('ord').value='tr';$('tn').checked=true;up()});
+up();
+</script>
+</body>
+</html>
