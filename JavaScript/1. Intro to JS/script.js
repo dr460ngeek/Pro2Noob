@@ -16,7 +16,7 @@
 // let b = 10;
 // let sum = a+b;
 // console.log(a+b);
-// console.log(sum)ff;
+// console.log(sum);
 
 // n lines
 // console.log(a+b-5);
