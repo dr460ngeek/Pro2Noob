@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Operators — Part 3</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--danger:#c0392b;--coral:#c2410c;--coralbg:#fde8dc;--warnbg:#fdf1d6;--warn:#8a5a00}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--danger:#ef8a7c;--coral:#f4a173;--coralbg:#3a2418;--warnbg:#3a2f12;--warn:#f0c869}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.fix{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:10px 14px;margin:12px 0}
+.fix b{color:var(--danger);font-weight:600}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600;text-anchor:middle}
+svg .l{fill:var(--fg);font-weight:600;font-size:14px}
+.g{fill:var(--code);stroke:var(--muted)}.o{fill:var(--coralbg);stroke:var(--coral)}
+.arr{stroke:var(--muted);stroke-width:1.5;fill:none}
+.ctl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+#out{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:8px;padding:12px 14px}
+#out .k{color:var(--muted)}#out .v{font-weight:600}
+#note{font-size:13px;border-radius:8px;padding:8px 12px;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Operators — Part 3</h1>
+<p class="mm">Mental model: operators are verbs that act on values. They do math, change a variable, compare two values, or combine true/false answers.</p>
+
+<h2>1. Arithmetic</h2>
+<pre><code>2 + 69    // 71    addition
+2 - 69    // -67   subtraction
+2 * 69    // 138   multiplication
+69 / 2    // 34.5  division
+69 % 2    // 1     remainder
+2 ** 3    // 8     exponent</code></pre>
+<div class="fix"><b>Corrections</b>
+<ul>
+<li>"substaction" should be "subtraction", and <code>/</code> was missing from the list.</li>
+<li><code>%</code> gives the remainder, so <code>2 % 69</code> is <code>2</code>, which is what <code>a%b</code> printed. Calling it "modulus" is loose, because they differ for negatives (<code>-5 % 3</code> is <code>-2</code>).</li>
+<li>The parentheses in <code>(a**b)</code> aren't needed.</li>
+</ul></div>
+<p class="mm">% = what's left over. Use case: <code>n % 2 === 0</code> checks for an even number.</p>
+
+<h2>2. Increment and decrement</h2>
+<p><code>x++</code> means <code>x = x + 1</code>, and <code>x--</code> means <code>x = x - 1</code>. On a line by themselves, pre and post behave the same. The difference only shows when you use the value in an expression:</p>
+<pre><code>let a = 10;
+console.log(a++);   // prints 10, then a is 11
+let b = 10;
+console.log(++b);   // prints 11, b is 11</code></pre>
+<div class="fix"><b>Corrections</b>
+<ul>
+<li>The comment says <code>a</code> is incremented "after console.log runs". Actually the increment happens while <code>a++</code> is being evaluated, before <code>console.log</code> runs. The expression just hands back the old value.</li>
+<li>The pre-increment and pre-decrement comments say <code>a</code>, but the variable is <code>b</code>.</li>
+<li>Each section redeclares <code>let a</code>. That's fine while commented out, but running them together breaks (same <code>let</code> name twice in one scope, from Part 1).</li>
+</ul></div>
+<p class="mm">x++ hands you the old value, then bumps. ++x bumps, then hands you the new value.</p>
+<figure>
+<svg viewBox="0 0 380 240" role="img" aria-label="Two lanes showing the order of steps for x++ and ++x when x starts at 10">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="l" x="20" y="34">x++  (post)</text>
+<rect class="g" x="20" y="46" width="100" height="44" rx="8"/><text class="t" x="70" y="73">x is 10</text>
+<rect class="o" x="140" y="46" width="100" height="44" rx="8"/><text class="t" x="190" y="73">gives 10</text>
+<rect class="g" x="260" y="46" width="100" height="44" rx="8"/><text class="t" x="310" y="73">x → 11</text>
+<line class="arr" x1="122" y1="68" x2="138" y2="68" marker-end="url(#ar)"/>
+<line class="arr" x1="242" y1="68" x2="258" y2="68" marker-end="url(#ar)"/>
+<text class="l" x="20" y="130">++x  (pre)</text>
+<rect class="g" x="20" y="142" width="100" height="44" rx="8"/><text class="t" x="70" y="169">x is 10</text>
+<rect class="g" x="140" y="142" width="100" height="44" rx="8"/><text class="t" x="190" y="169">x → 11</text>
+<rect class="o" x="260" y="142" width="100" height="44" rx="8"/><text class="t" x="310" y="169">gives 11</text>
+<line class="arr" x1="122" y1="164" x2="138" y2="164" marker-end="url(#ar)"/>
+<line class="arr" x1="242" y1="164" x2="258" y2="164" marker-end="url(#ar)"/>
+<text class="t" x="190" y="222">Orange box = the value console.log receives</text>
+</svg>
+</figure>
+
+<h2>3. Assignment and shorthand</h2>
+<pre><code>a += b;    // a = a + b
+a -= b;  a *= b;  a /= b;  a %= b;  a **= b;</code></pre>
+<p><code>=</code> assigns (stores the right side into the left). It doesn't compare, and <code>if (a = 5)</code> is a classic bug. Shorthand needs <code>let</code>, since <code>const</code> can't be reassigned. With strings, <code>+=</code> appends.</p>
+<p class="mm">a += b = "update a using b".</p>
+
+<h2>4. Comparison: == === != !==</h2>
+<pre><code>69 == 69      // true
+69 === 69     // true
+69 == '69'    // true    == converts types first
+69 === '69'   // false   === does not</code></pre>
+<div class="fix"><b>Correction</b>
+<p><code>==</code> doesn't just "expect values to be the same". It first converts both sides to a common type, then compares (loose equality). So <code>0 == false</code>, <code>'' == 0</code>, and <code>null == undefined</code> are all <code>true</code>. <code>===</code> needs the same type and the same value.</p>
+<p>The class examples used two numbers, so <code>==</code> and <code>===</code> always matched. The difference only shows in <code>a == c</code> with <code>c = '69'</code>, which wasn't run. Default to <code>===</code>.</p></div>
+<p><code>!=</code> and <code>!==</code> are the same checks flipped. The "NOT gate" idea from class is right.</p>
+<p class="mm">=== asks "same type AND same value?" == asks "same value after converting?"</p>
+
+<h2>5. Logical: &amp;&amp; || !</h2>
+<table>
+<tr><th>a</th><th>c</th><th><code>a &amp;&amp; c</code></th><th><code>a || c</code></th><th><code>!a</code></th></tr>
+<tr><td>true</td><td>false</td><td>false</td><td>true</td><td>false</td></tr>
+</table>
+<ul>
+<li><code>&amp;&amp;</code> is true only if both sides are true.</li>
+<li><code>||</code> is true if at least one side is true.</li>
+<li><code>!</code> flips the value.</li>
+</ul>
+<p>Gotcha: <code>&amp;&amp;</code> and <code>||</code> return one of the operand values, not always a boolean. They also stop early (short-circuit).</p>
+<pre><code>0 &amp;&amp; 5        // 0        stops at the first falsy
+"hi" &amp;&amp; 5     // 5        all truthy, returns the last
+0 || "guest"  // "guest"  returns the first truthy</code></pre>
+<p><code>!</code> converts to boolean first, so <code>!"hi"</code> is <code>false</code>, and <code>!!x</code> is the same as <code>Boolean(x)</code>.</p>
+<p class="mm">&amp;&amp; = both must pass. || = any one passes. ! = flip.</p>
+
+<p>Pick two values and see every operator's result (real JS):</p>
+<div class="ctl">
+<label>x<select id="x"></select></label>
+<label>y<select id="y"></select></label>
+</div>
+<div id="out"></div>
+<div id="note"></div>
+
+<h2>Mental model</h2>
+<p>Arithmetic produces numbers, and <code>++</code>/<code>--</code>/<code>+=</code> change a variable in place. Comparison (<code>===</code>, <code>==</code>) produces a boolean, and logical operators combine those booleans. Two rules to remember: "post gives old, pre gives new" and "use <code>===</code>, because <code>==</code> converts types first".</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Operator</th><th>Simple meaning</th></tr>
+<tr><td><code>+ - * /</code></td><td>Add, subtract, multiply, divide</td></tr>
+<tr><td><code>%</code></td><td>Remainder (<code>n % 2</code> for even/odd)</td></tr>
+<tr><td><code>**</code></td><td>Exponent, <code>2 ** 3</code> is 8</td></tr>
+<tr><td><code>x++</code> / <code>x--</code></td><td>Use the old value, then change by 1</td></tr>
+<tr><td><code>++x</code> / <code>--x</code></td><td>Change by 1, then use the new value</td></tr>
+<tr><td><code>+=</code> <code>-=</code> <code>*=</code> ...</td><td>Update a variable using itself</td></tr>
+<tr><td><code>=</code></td><td>Assign, never compare</td></tr>
+<tr><td><code>==</code> / <code>!=</code></td><td>Loose compare, converts types first</td></tr>
+<tr><td><code>===</code> / <code>!==</code></td><td>Strict compare, same type and value (preferred)</td></tr>
+<tr><td><code>&amp;&amp;</code></td><td>Both must be truthy, returns an operand</td></tr>
+<tr><td><code>||</code></td><td>At least one truthy, returns an operand</td></tr>
+<tr><td><code>!</code></td><td>Flips to the opposite boolean</td></tr>
+</table>
+</main>
+<script>
+var P=[["69",69],["'69'","69"],["68",68],["0",0],["false",false],["true",true],["''",""],["null",null],["undefined",undefined]];
+var $=function(i){return document.getElementById(i)};
+['x','y'].forEach(function(id){P.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p[0];$(id).appendChild(o)});});
+$('y').value=1;
+function f(v){return typeof v==='string'?"'"+v+"'":String(v)}
+function up(){
+var x=P[$('x').value][1],y=P[$('y').value][1];
+var rows=[['x == y',x==y],['x === y',x===y],['x != y',x!=y],['x !== y',x!==y],['x && y',x&&y],['x || y',x||y],['!x',!x]];
+var o=$('out');o.textContent='';
+rows.forEach(function(r){
+var k=document.createElement('div');k.className='k';k.textContent=r[0];
+var v=document.createElement('div');v.className='v';v.textContent=f(r[1]);
+o.appendChild(k);o.appendChild(v);
+});
+var n=$('note');
+if((x==y)!==(x===y)){n.textContent='== and === disagree here: == converted the types first.';n.style.background='var(--warnbg)';n.style.color='var(--warn)';}
+else{n.textContent='== and === agree for this pair.';n.style.background='var(--code)';n.style.color='var(--muted)';}
+}
+$('x').addEventListener('input',up);$('y').addEventListener('input',up);up();
+</script>
+</body>
+</html>
