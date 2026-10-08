@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Arrays — Part 5</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--cx:#e1f1e6;--cxl:#2f7a4f;--teal:#0f766e;--tealbg:#dff3f0;--infobg:#e6eefb;--info:#1d4f91}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--cx:#1c3326;--cxl:#7fcaa0;--teal:#5fd1c4;--tealbg:#17332f;--infobg:#1b2a44;--info:#8fb8f0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.cx{background:var(--cx);border-left:3px solid var(--cxl);border-radius:0 8px 8px 0;padding:8px 14px;margin:10px 0 0}
+.cx pre{margin:6px 0;background:rgba(0,0,0,.06)}
+.cx p{margin:4px 0}
+details{margin:6px 0 12px;border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14.5px;background:var(--card)}
+summary{cursor:pointer;color:var(--muted)}
+details p{margin:8px 0 4px}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600;text-anchor:middle;font-size:14px}
+svg .m{text-anchor:middle}
+.g{fill:var(--code);stroke:var(--muted)}.tl{fill:var(--tealbg);stroke:var(--teal)}.ex{fill:none;stroke:var(--muted);stroke-dasharray:4 3}
+#chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 10px;min-height:34px}
+#chips span{font:13px ui-monospace,Menlo,Consolas,monospace;padding:6px 10px;border-radius:6px;background:var(--infobg);color:var(--info)}
+#btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+button,select{font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);cursor:pointer}
+#btns button{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+#log,#al{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:8px;padding:10px 12px;white-space:pre-wrap;margin:0 0 16px}
+label.sel{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px;margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Arrays — Part 5</h1>
+<p class="mm">Mental model: an array is a numbered row of boxes (starting at 0) that can hold anything. Most methods change it in place, and a few hand back something new.</p>
+
+<h2>1. Creating and reading</h2>
+<div class="cx">
+<pre><code>const arrName = ['Suresh', 'Mukesh', 'Rakesh', true, 123,
+  function dummyFunc() { console.log("Dummy function"); },
+  { name: 'Pratham', age: 21 }];</code></pre>
+<p>Indexing always starts at 0.</p>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class code wrote <code>arrName = [...]</code> with no <code>let</code> or <code>const</code>, which creates an accidental global (Part 1). The note also said indexing starts at 0 "by default", but it always starts at 0 and you can't change that.</p>
+</details>
+<pre><code>arrName[1]          // 'Mukesh'
+arrName.length      // 7
+typeof arrName[6]   // "object"</code></pre>
+<p>Arrays can mix any types. <code>length</code> is the number of items, which is the last index plus 1. <code>typeof</code> reports the type of the value stored there (Part 2), so index 6 gives <code>"object"</code> and index 5 would give <code>"function"</code>.</p>
+<p class="mm">Array = numbered lockers, starting at 0.</p>
+
+<h2>2. Same array, not a copy</h2>
+<div class="cx">
+<pre><code>const newArr = arrName;     // shares the SAME array
+newArr[1] = 'Pratham';
+console.log(arrName[1]);    // 'Pratham', both names see it
+const copy = [...arrName];  // a real (shallow) copy</code></pre>
+<p><code>newArr = arrName</code> copies the reference, not the array.</p>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class heading called this "Reassignment" and the comment said <code>arrName</code> "should still show" Pratham. Nothing was reassigned. <code>newArr[1] = ...</code> changes an element (mutation), and <code>arrName</code> shows 'Pratham' because both names point at one array. Also, a <code>const</code> array can still be mutated (Part 1). <code>arrName.slice()</code> is another way to copy.</p>
+</details>
+<p class="mm">Two names, one array. To get a second array, copy it.</p>
+
+<h2>3. Searching: indexOf, includes</h2>
+<pre><code>newArr.indexOf("Suresh")    // 0   (first match; -1 if not found)
+newArr.includes("Rakesh")   // true</code></pre>
+<p>Both compare with strict equality, so they're case-sensitive and <code>"1"</code> doesn't match <code>1</code>. <code>-1</code> means "not found", which the class comment didn't mention.</p>
+
+<h2>4. Adding and removing at the ends</h2>
+<div class="cx">
+<pre><code>newArr.push("Laptop");      // add to end
+newArr.unshift("Laptop");   // add to start
+newArr.pop();               // remove last
+newArr.shift();             // remove first</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class code had <code>pop("")</code>. <code>pop</code> takes no arguments, so the <code>""</code> was silently ignored. Write <code>pop()</code>.</p>
+</details>
+<p><code>push</code> and <code>unshift</code> return the new length. <code>pop</code> and <code>shift</code> return the removed item. All four change the original array.</p>
+<p class="mm">push/pop work at the end. unshift/shift work at the start.</p>
+
+<h2>5. sort</h2>
+<div class="cx">
+<pre><code>marks.sort();                  // sorts as TEXT by default
+marks.sort((a, b) =&gt; a - b);   // numeric, small to big
+marks.sort((a, b) =&gt; b - a);   // numeric, big to small</code></pre>
+<p><code>sort()</code> with no function sorts alphabetically, not numerically.</p>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class treated <code>sort()</code> as a numeric sort. Your <code>marks</code> came out in the right order only because every value has two digits. <code>[5, 100, 25].sort()</code> gives <code>[100, 25, 5]</code>. <code>sort</code> also changes the original array in place.</p>
+</details>
+<p class="mm">No compare function = dictionary order, not number order.</p>
+
+<h2>6. slice(start, end)</h2>
+<div class="cx">
+<pre><code>marks.slice(2, 4)   // [50, 80]  (indexes 2 and 3)</code></pre>
+<p>Start is included, end is excluded, so <code>slice(2, 4)</code> returns two items.</p>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class comment said "index 2 to before 6", but the code is <code>slice(2, 4)</code>. It returns indexes 2 and 3, which is <code>[50, 80]</code> for your unsorted <code>marks</code>. <code>slice</code> returns a new array and leaves the original alone, and <code>slice()</code> with no arguments is a quick copy.</p>
+</details>
+<p class="mm">slice = photocopy a piece, original untouched.</p>
+
+<figure>
+<svg viewBox="0 0 380 210" role="img" aria-label="An array of nine marks with indexes 0 to 8. Indexes 2 and 3 are highlighted as the result of slice(2, 4); index 4 is the excluded end.">
+<text class="m" x="114" y="14">start (in)</text><text class="m" x="190" y="14">end (out)</text>
+<text class="m" x="38" y="34">0</text><text class="m" x="76" y="34">1</text><text class="m" x="114" y="34">2</text><text class="m" x="152" y="34">3</text><text class="m" x="190" y="34">4</text><text class="m" x="228" y="34">5</text><text class="m" x="266" y="34">6</text><text class="m" x="304" y="34">7</text><text class="m" x="342" y="34">8</text>
+<rect class="g" x="20" y="44" width="36" height="36" rx="4"/><text class="t" x="38" y="67">60</text>
+<rect class="g" x="58" y="44" width="36" height="36" rx="4"/><text class="t" x="76" y="67">40</text>
+<rect class="tl" x="96" y="44" width="36" height="36" rx="4"/><text class="t" x="114" y="67">50</text>
+<rect class="tl" x="134" y="44" width="36" height="36" rx="4"/><text class="t" x="152" y="67">80</text>
+<rect class="ex" x="172" y="44" width="36" height="36" rx="4"/><text class="m" x="190" y="67" style="font-size:14px">90</text>
+<rect class="g" x="210" y="44" width="36" height="36" rx="4"/><text class="t" x="228" y="67">44</text>
+<rect class="g" x="248" y="44" width="36" height="36" rx="4"/><text class="t" x="266" y="67">69</text>
+<rect class="g" x="286" y="44" width="36" height="36" rx="4"/><text class="t" x="304" y="67">56</text>
+<rect class="g" x="324" y="44" width="36" height="36" rx="4"/><text class="t" x="342" y="67">92</text>
+<path d="M96 90 V96 H170 V90" fill="none" stroke="var(--muted)" stroke-width="1"/>
+<text class="t" x="133" y="116">slice(2, 4)</text>
+<text class="m" x="133" y="132">→ [50, 80]</text>
+<text x="20" y="166">start: unshift / shift</text>
+<text x="360" y="166" text-anchor="end">end: push / pop</text>
+<text class="m" x="190" y="196">slice leaves the original array unchanged</text>
+</svg>
+</figure>
+
+<h2>7. Which methods change the array?</h2>
+<ul>
+<li>Changes the original: <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code>, <code>sort</code>.</li>
+<li>Leaves it alone: <code>slice</code>, <code>indexOf</code>, <code>includes</code>.</li>
+</ul>
+<p>If you need the original afterwards, copy first with <code>[...arr]</code> or <code>arr.slice()</code>.</p>
+
+<p>Try the methods, then flip the copy toggle (real JS):</p>
+<div id="chips"></div>
+<div id="btns"></div>
+<div id="log"></div>
+<label class="sel">newArr is made with
+<select id="mode"><option value="a">newArr = arr  (same array)</option><option value="c">newArr = [...arr]  (copy)</option></select></label>
+<pre id="al"></pre>
+
+<h2>Mental model</h2>
+<p>An array is a numbered row of boxes starting at 0. Reading uses <code>arr[i]</code>, and searching uses <code>indexOf</code> and <code>includes</code>. Adding and removing happens at the ends. <code>slice</code> takes a piece without touching the original. <code>sort</code> changes the array in place and needs a compare function for numbers. <code>b = a</code> shares one array, so copy with <code>[...a]</code> when you need a separate one.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td><code>arr[i]</code></td><td>Item at index <code>i</code>, first index is 0</td></tr>
+<tr><td><code>arr.length</code></td><td>Number of items (last index + 1)</td></tr>
+<tr><td><code>indexOf(x)</code></td><td>First index of <code>x</code>, <code>-1</code> if missing</td></tr>
+<tr><td><code>includes(x)</code></td><td><code>true</code> or <code>false</code></td></tr>
+<tr><td><code>push(x)</code> / <code>pop()</code></td><td>Add / remove at the end</td></tr>
+<tr><td><code>unshift(x)</code> / <code>shift()</code></td><td>Add / remove at the start</td></tr>
+<tr><td><code>sort()</code></td><td>Alphabetical (as text), changes the array</td></tr>
+<tr><td><code>sort((a, b) =&gt; a - b)</code></td><td>Numeric, small to big</td></tr>
+<tr><td><code>slice(s, e)</code></td><td>Copy from <code>s</code> up to (not including) <code>e</code>, original unchanged</td></tr>
+<tr><td><code>b = a</code></td><td>Same array, two names</td></tr>
+<tr><td><code>[...a]</code></td><td>Real (shallow) copy</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var start=[60,40,50,80,90],arr=start.slice();
+var ops=[
+['push(100)',function(){return arr.push(100)}],
+['unshift(5)',function(){return arr.unshift(5)}],
+['pop()',function(){return arr.pop()}],
+['shift()',function(){return arr.shift()}],
+['sort()',function(){arr.sort();return 'same array, sorted as text'}],
+['sort((a, b) => a - b)',function(){arr.sort(function(a,b){return a-b});return 'same array, sorted by number'}],
+['slice(1, 3)',function(){return arr.slice(1,3)}],
+['indexOf(80)',function(){return arr.indexOf(80)}]];
+function chips(){var c=$('chips');c.textContent='';arr.forEach(function(v,i){var s=document.createElement('span');s.textContent=i+': '+v;c.appendChild(s);});if(!arr.length)c.textContent='[] (empty)';}
+function log(n,r){$('log').textContent='arr.'+n+'\nreturned: '+(typeof r==='string'?r:JSON.stringify(r))+'\narr is now: '+JSON.stringify(arr);}
+ops.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[0];b.onclick=function(){var r=o[1]();chips();log(o[0],r);};$('btns').appendChild(b);});
+var rb=document.createElement('button');rb.type='button';rb.textContent='reset';rb.onclick=function(){arr=start.slice();chips();$('log').textContent='arr is back to '+JSON.stringify(arr);};$('btns').appendChild(rb);
+function al(){var m=$('mode').value,a=[1,2,3],b=m==='a'?a:[...a];b[0]='X';
+$('al').textContent='let arr = [1, 2, 3];\nlet newArr = '+(m==='a'?'arr':'[...arr]')+';\nnewArr[0] = "X";\n\narr    → '+JSON.stringify(a)+'\nnewArr → '+JSON.stringify(b);}
+$('mode').addEventListener('input',al);
+chips();$('log').textContent='Press a method to run it on arr.';al();
+</script>
+</body>
+</html>
