@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Conditionals: if, else, nested if, ternary — Part 8</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--cx:#e1f1e6;--cxl:#2f7a4f;--teal:#0f766e;--tealbg:#dff3f0;--coral:#c2410c;--coralbg:#fde8dc;--warnbg:#fdf1d6;--warn:#8a5a00;--danger:#c0392b}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--cx:#1c3326;--cxl:#7fcaa0;--teal:#5fd1c4;--tealbg:#17332f;--coral:#f4a173;--coralbg:#3a2418;--warnbg:#3a2f12;--warn:#f0c869;--danger:#ef8a7c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.cx{background:var(--cx);border-left:3px solid var(--cxl);border-radius:0 8px 8px 0;padding:8px 14px;margin:10px 0 0}
+.cx pre{margin:6px 0;background:rgba(0,0,0,.06)}
+.cx p{margin:4px 0}
+details{margin:6px 0 12px;border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14.5px;background:var(--card)}
+summary{cursor:pointer;color:var(--muted)}
+details p,details ul{margin:8px 0 4px}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600;font-size:14px;text-anchor:middle}
+svg .m{text-anchor:middle}
+.pu{fill:var(--accent-bg);stroke:var(--accent)}.tl{fill:var(--tealbg);stroke:var(--teal)}.o{fill:var(--coralbg);stroke:var(--coral)}.g{fill:var(--code);stroke:var(--muted)}
+.ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+.ctl{margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ctl output{color:var(--fg);font-weight:600}
+#out{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:8px;padding:12px 14px}
+#out .k{color:var(--muted)}#out .v{font-weight:600}#out .bad{color:var(--danger)}
+#nt{font-size:13px;border-radius:8px;padding:8px 12px;margin-top:10px;background:var(--warnbg);color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Conditionals: if, else, nested if, ternary — Part 8</h1>
+<p class="mm">Mental model: <code>if</code> asks a yes/no question and runs a block only on "yes". <code>else</code> is the "no" path. Nesting asks a second question inside a "yes". The ternary is a one-line yes/no that hands back a value.</p>
+
+<h2>1. if and if / else</h2>
+<div class="cx">
+<pre><code>console.log("First line.");
+const candidateAge = 12;
+
+if (candidateAge &gt;= 18) {
+  console.log("You're eligible to vote.");
+}
+
+if (candidateAge &gt;= 18) {
+  console.log("You're eligible to vote.");
+} else {
+  console.log("You're not eligible to vote yet.");   // runs for 12
+}
+
+console.log("Last line.");</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<p>"elligible" is spelled "eligible". I also replaced the message texts in the class examples with plain ones, since the logic is what matters here.</p>
+</details>
+<ul>
+<li>A lone <code>if</code> runs its block only when true. When false it's skipped, and the program carries on.</li>
+<li><code>if / else</code> runs exactly one of the two blocks.</li>
+<li>Lines outside, like "First line." and "Last line.", always run, in order.</li>
+<li>Always use braces <code>{ }</code>, even for one line.</li>
+</ul>
+<p class="mm">if = do this only when true. else = otherwise do that.</p>
+
+<h2>2. Nested if</h2>
+<div class="cx">
+<pre><code>if (candidateAge &gt;= 18) {
+  if (candidateAge &gt;= 60) {
+    console.log("Senior citizens (60 or above) can vote online.");
+  } else {
+    console.log("You're eligible to vote.");
+  }
+} else {
+  console.log("You're not eligible to vote yet.");
+}</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class version had an extra <code>console.log("You're eligible to vote.")</code> after the inner if/else, still inside the outer block. That line runs for everyone 18 and over, so a senior saw both the senior message and "eligible", and a 30-year-old saw "eligible" twice. I removed it. If you wanted both messages on purpose, keep it.</p>
+</details>
+<p>The inner <code>if</code> is only checked when the outer one is true.</p>
+<p class="mm">Nested = a question asked inside a "yes" answer.</p>
+
+<h2>3. The else-if ladder (flatter)</h2>
+<pre><code>if (candidateAge &gt;= 60) {
+  console.log("Senior citizens (60 or above) can vote online.");
+} else if (candidateAge &gt;= 18) {
+  console.log("You're eligible to vote.");
+} else {
+  console.log("You're not eligible to vote yet.");
+}</code></pre>
+<p>This gives the same outcomes as the nested version, but flat. Order matters (Part 7): <code>&gt;= 60</code> must come before <code>&gt;= 18</code>, or a 70-year-old would match the 18 branch first.</p>
+<p class="mm">Nested or ladder: same decisions, different shape. Prefer the flatter one.</p>
+
+<figure>
+<svg viewBox="0 0 380 310" role="img" aria-label="Decision flow: if age is at least 18, check age at least 60 for senior or eligible; otherwise not eligible.">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="pu" x="120" y="16" width="140" height="40" rx="8"/><text class="t" x="190" y="41">age &gt;= 18 ?</text>
+<rect class="pu" x="120" y="100" width="140" height="40" rx="8"/><text class="t" x="190" y="125">age &gt;= 60 ?</text>
+<rect class="g" x="10" y="110" width="100" height="40" rx="8"/><text class="t" x="60" y="135">Not eligible</text>
+<rect class="tl" x="130" y="200" width="120" height="44" rx="8"/><text class="t" x="190" y="227">Eligible</text>
+<rect class="o" x="262" y="200" width="110" height="44" rx="8"/><text class="t" x="317" y="227">Senior (online)</text>
+<path class="ln" d="M120 36 H60 V108" marker-end="url(#ar)"/>
+<line class="ln" x1="190" y1="58" x2="190" y2="98" marker-end="url(#ar)"/>
+<line class="ln" x1="190" y1="142" x2="190" y2="198" marker-end="url(#ar)"/>
+<path class="ln" d="M260 120 H317 V198" marker-end="url(#ar)"/>
+<text class="m" x="90" y="28">no</text>
+<text x="200" y="82">yes</text>
+<text x="200" y="176">no</text>
+<text class="m" x="288" y="114">yes</text>
+<text class="m" x="190" y="276">The inner check only runs when the outer one is yes</text>
+<text class="m" x="190" y="296">Same decisions as the else-if ladder, just nested</text>
+</svg>
+</figure>
+
+<h2>4. The ternary operator</h2>
+<div class="cx">
+<pre><code>// condition ? valueIfTrue : valueIfFalse
+const message = candidateAge &gt;= 18
+  ? "You're eligible to vote."
+  : "You're not eligible to vote yet.";
+console.log(message);
+
+// or inline:
+console.log(candidateAge &gt;= 18 ? "eligible" : "not eligible");</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<ul>
+<li>The class comment said <code>condition ? True : False</code>, which reads as if it returns booleans. It returns whichever value or expression sits in the true or false slot.</li>
+<li>The class code put a <code>console.log(...)</code> in each slot. That works, but the ternary is built to produce a value, so pick the value and log once.</li>
+<li>Use <code>if / else</code> when you need to run several statements.</li>
+</ul>
+</details>
+<p class="mm">Ternary = a tiny if/else that hands back a value.</p>
+
+<p>Move the age slider to compare every structure (real JS):</p>
+<div class="ctl"><label>candidateAge: <output id="sv">12</output><input type="range" id="ag" min="0" max="100" step="1" value="12"></label></div>
+<div id="out"></div>
+<div id="nt"></div>
+
+<h2>Mental model</h2>
+<p>Every <code>if</code> is a yes/no question. A lone <code>if</code> acts only on "yes", <code>else</code> covers "no", and nesting asks a follow-up question inside a "yes". The else-if ladder flattens nested questions into one list, strictest first. The ternary compresses a simple if/else into one expression that produces a value.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td><code>if (cond) { }</code></td><td>Runs the block only when true</td></tr>
+<tr><td><code>else { }</code></td><td>Runs when the <code>if</code> was false</td></tr>
+<tr><td>nested <code>if</code></td><td>A second check inside a "yes" block</td></tr>
+<tr><td>else-if ladder</td><td>Flat version of nested checks, strictest first</td></tr>
+<tr><td><code>cond ? a : b</code></td><td>Value <code>a</code> if true, else value <code>b</code></td></tr>
+<tr><td>ternary vs if/else</td><td>Ternary picks a value, if/else runs statements</td></tr>
+<tr><td>braces <code>{ }</code></td><td>Always use them, even for one line</td></tr>
+<tr><td>lines outside the <code>if</code></td><td>Always run, in order</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var E='eligible',S='senior: vote online',N='not eligible';
+function fIf(a){return a>=18?[E]:[];}
+function fIfElse(a){return a>=18?[E]:[N];}
+function fNested(a,dup){var o=[];if(a>=18){if(a>=60)o.push(S);else o.push(E);if(dup)o.push(E);}else o.push(N);return o;}
+function fLadder(a){if(a>=60)return[S];else if(a>=18)return[E];else return[N];}
+function fTern(a){return[a>=18?E:N];}
+function up(){
+var a=+$('ag').value;$('sv').textContent=a;
+var rows=[['if only',fIf(a)],['if / else',fIfElse(a)],['nested (corrected)',fNested(a,false)],['nested (class version)',fNested(a,true)],['else-if ladder',fLadder(a)],['ternary',fTern(a)]];
+var o=$('out');o.textContent='';
+rows.forEach(function(r){
+var k=document.createElement('div');k.className='k';k.textContent=r[0];
+var v=document.createElement('div');v.className='v'+((r[0]==='nested (class version)'&&r[1].length>1)?' bad':'');
+v.textContent=r[1].length?r[1].join('  +  '):'(nothing)';
+o.appendChild(k);o.appendChild(v);
+});
+$('nt').textContent=a>=18?'The class nested version prints an extra "eligible" for everyone 18 and over.':'A lone if prints nothing when the condition is false. The other structures pick a message.';
+}
+$('ag').addEventListener('input',up);up();
+</script>
+</body>
+</html>

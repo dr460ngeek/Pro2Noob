@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Functions — Part 6</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--cx:#e1f1e6;--cxl:#2f7a4f;--teal:#0f766e;--tealbg:#dff3f0;--coral:#c2410c;--coralbg:#fde8dc;--okbg:#e4f3ea;--ok:#2f6f4f;--dbg:#fbe9e6;--danger:#c0392b}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--cx:#1c3326;--cxl:#7fcaa0;--teal:#5fd1c4;--tealbg:#17332f;--coral:#f4a173;--coralbg:#3a2418;--okbg:#1f3a2b;--ok:#7fcaa0;--dbg:#3b2623;--danger:#ef8a7c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.cx{background:var(--cx);border-left:3px solid var(--cxl);border-radius:0 8px 8px 0;padding:8px 14px;margin:10px 0 0}
+.cx pre{margin:6px 0;background:rgba(0,0,0,.06)}
+.cx p{margin:4px 0}
+details{margin:6px 0 12px;border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14.5px;background:var(--card)}
+summary{cursor:pointer;color:var(--muted)}
+details p,details ul{margin:8px 0 4px}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif;text-anchor:middle}
+svg .t{fill:var(--fg);font-weight:600;font-size:14px}
+.pu{fill:var(--accent-bg);stroke:var(--accent)}.tl{fill:var(--tealbg);stroke:var(--teal)}.o{fill:var(--coralbg);stroke:var(--coral)}
+.ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+.ctl{display:grid;gap:12px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+#rs{font:13px ui-monospace,Menlo,Consolas,monospace;border-radius:8px;padding:10px 12px}
+#nt{font-size:13px;border-radius:8px;padding:8px 12px;margin-top:8px;background:var(--code);color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Functions — Part 6</h1>
+<p class="mm">Mental model: a function is a named recipe. You pass in ingredients (arguments), it runs the steps (body), and it can hand back a result (<code>return</code>).</p>
+
+<h2>1. Named functions (declarations)</h2>
+<pre><code>function sum(a, b) {                 // a, b = parameters
+  const result = a + b;
+  console.log('Result:', result);    // prints, but gives nothing back
+}
+sum(70, 1);                          // 70, 1 = arguments
+
+function multiply(c, d) {
+  return c * d;                      // hands the value back
+}
+console.log("4 3's are", multiply(4, 3));   // 4 3's are 12
+const result2 = multiply(2, 3);             // 6, stored for later</code></pre>
+<ul>
+<li>Parameters are the names in the definition. Arguments are the values you pass in.</li>
+<li><code>console.log</code> shows a value to you. <code>return</code> gives it to your code, and it also stops the function immediately. A function with no <code>return</code> gives back <code>undefined</code>.</li>
+<li><code>result</code> inside <code>sum</code> is local (Part 1), so you could reuse that name outside without a clash.</li>
+</ul>
+<p class="mm">print = show it. return = hand it back.</p>
+
+<figure>
+<svg viewBox="0 0 380 220" role="img" aria-label="Arguments 4 and 3 flow into multiply(c, d), which returns 12">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="pu" x="10" y="60" width="90" height="60" rx="8"/><text class="t" x="55" y="95">4, 3</text>
+<rect class="tl" x="134" y="40" width="140" height="100" rx="8"/>
+<text class="t" x="204" y="71">multiply(c, d)</text>
+<text x="204" y="94">{ body runs }</text>
+<text class="t" x="204" y="121">return c * d</text>
+<rect class="o" x="304" y="60" width="66" height="60" rx="8"/><text class="t" x="337" y="95">12</text>
+<line class="ln" x1="102" y1="90" x2="132" y2="90" marker-end="url(#ar)"/>
+<line class="ln" x1="276" y1="90" x2="302" y2="90" marker-end="url(#ar)"/>
+<text x="55" y="140">arguments</text>
+<text x="204" y="162">parameters: c = 4, d = 3</text>
+<text x="337" y="140">return value</text>
+<text x="190" y="204">No return? You get undefined back</text>
+</svg>
+</figure>
+
+<h2>2. Calling before the definition</h2>
+<pre><code>greet();                        // works: Hi, undefined!
+function greet(username) {
+  console.log('Hi,', username + '!');
+}
+greet('Pratham');               // Hi, Pratham!</code></pre>
+<p>Function declarations are hoisted: JS reads them first, so you can call them above their line. A missing argument makes the parameter <code>undefined</code>, and extra arguments are ignored. The examples use a plain greeting text.</p>
+<p class="mm">Declaration = usable anywhere in its scope, even above itself.</p>
+
+<h2>3. Function expressions (anonymous functions)</h2>
+<div class="cx">
+<pre><code>const add = function (i, j) {
+  const result = i + j;
+  return result;
+};
+add(2, 3);   // 5, but only AFTER the line above</code></pre>
+<p>A function expression is a value stored in a variable, so it can only be used after that line has run.</p>
+</div>
+<details><summary>What I corrected</summary>
+<ul>
+<li>The class note said anonymous functions "do not support global hoisting" and must be "declared first". The reason isn't that the function is anonymous, and "global" isn't the issue. <code>add</code> is a variable that only gets its value when the line runs. Calling it earlier gives a <code>ReferenceError</code> with <code>const</code> or <code>let</code>, and a <code>TypeError: not a function</code> with <code>var</code>.</li>
+<li><code>i+k</code> should be <code>i+j</code>. <code>k</code> doesn't exist, so calling it would throw a <code>ReferenceError</code>.</li>
+<li><code>let</code> became <code>const</code>, since <code>add</code> is never reassigned (Part 1).</li>
+</ul>
+</details>
+<p class="mm">Expression = a function stored in a variable, usable once that variable is set.</p>
+
+<p>Try the combinations (real JS where it can run):</p>
+<div class="ctl">
+<label>style<select id="st"><option value="decl">function declaration</option><option value="const">const greet = function (...)</option><option value="var">var greet = function (...)</option></select></label>
+<label>call position<select id="ps"><option value="before">call before the definition</option><option value="after">call after the definition</option></select></label>
+<label>arguments<select id="ar2"><option value="0">greet()</option><option value="1" selected>greet('Pratham')</option><option value="2">greet('Pratham', 'Extra')</option></select></label>
+</div>
+<pre id="cd"></pre>
+<div id="rs"></div>
+<div id="nt"></div>
+
+<h2>4. Nested functions</h2>
+<pre><code>function addSquares(n, m) {
+  const a = square(n);
+  const b = square(m);
+  function square(num) {        // private helper, only exists inside addSquares
+    return num * num;
+  }
+  return a + b;
+}
+console.log(addSquares(1, 2));  // 5  (1 + 4)</code></pre>
+<ul>
+<li>The inner function is private to the outer one. Calling <code>square()</code> from outside gives a <code>ReferenceError</code>.</li>
+<li>The inner function can use the outer function's variables, but not the other way round.</li>
+<li>It works even though <code>square</code> is defined after it's used, because declarations are hoisted inside the outer function too.</li>
+</ul>
+<p>Your earlier nested example, corrected:</p>
+<div class="cx">
+<pre><code>function power(x, y) {
+  function multiplier(num, exp) {
+    let res = 1;
+    for (let i = 1; i &lt;= exp; i++) {
+      res *= num;
+    }
+    return res;
+  }
+  return multiplier(x, y);   // power(4, 3) = 4 * 4 * 4 = 64
+}</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class name <code>addSquare</code> suggested adding squares, but the code multiplies <code>num</code> by itself <code>exp</code> times, so <code>addSquare(4, 3)</code> gives 64. I renamed it <code>power</code>. Also, <code>console.log((addSquares(1,2)))</code> has one set of parentheses too many.</p>
+</details>
+<p class="mm">Nested function = a private helper.</p>
+
+<h2>Mental model</h2>
+<p>A function packs reusable steps. Parameters are the input names, arguments are the actual values, and <code>return</code> is the output (no <code>return</code> means <code>undefined</code>). Declarations are hoisted, so you can call them above their line. Expressions are just values in a variable, so they only work after that line runs. Nested functions are private helpers that live inside their outer function.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td><code>function name(params) {}</code></td><td>Named function (declaration), hoisted</td></tr>
+<tr><td>parameters vs arguments</td><td>Names in the definition vs values you pass in</td></tr>
+<tr><td><code>return</code></td><td>Hands a value back and stops the function</td></tr>
+<tr><td>no <code>return</code></td><td>Gives back <code>undefined</code></td></tr>
+<tr><td><code>console.log</code></td><td>Shows output, doesn't give a value back</td></tr>
+<tr><td><code>const f = function () {}</code></td><td>Function expression, usable only after its line</td></tr>
+<tr><td>hoisting</td><td>Declarations work above their line, expressions don't</td></tr>
+<tr><td>missing / extra arguments</td><td>Missing is <code>undefined</code>, extra is ignored</td></tr>
+<tr><td>nested function</td><td>Helper inside another function, private to it</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+function greet(u){return 'Hi, '+u+'!'}
+function up(){
+var st=$('st').value,pos=$('ps').value,ar=$('ar2').value;
+var args=ar==='0'?[]:ar==='1'?['Pratham']:['Pratham','Extra'];
+var argTxt=ar==='0'?'':ar==='1'?"'Pratham'":"'Pratham', 'Extra'";
+var body="  return 'Hi, ' + username + '!';\n";
+var def=st==='decl'?'function greet(username) {\n'+body+'}':(st==='const'?'const':'var')+' greet = function (username) {\n'+body+'};';
+var call='console.log(greet('+argTxt+'));';
+$('cd').textContent=pos==='before'?call+'\n\n'+def:def+'\n\n'+call;
+var ok=true,res;
+if(pos==='before'&&st==='const'){ok=false;res="ReferenceError: Cannot access 'greet' before initialization";}
+else if(pos==='before'&&st==='var'){ok=false;res='TypeError: greet is not a function';}
+else res=greet.apply(null,args);
+var r=$('rs');r.textContent=(ok?'✓ ':'✗ ')+res;
+r.style.background=ok?'var(--okbg)':'var(--dbg)';
+r.style.color=ok?'var(--ok)':'var(--danger)';
+var n=$('nt'),msg='';
+if(ok&&ar==='0')msg='No argument passed, so username was undefined.';
+else if(ok&&ar==='2')msg='The extra argument was ignored.';
+else if(!ok&&st==='var')msg='var hoists the variable (as undefined), but not the function value.';
+else if(!ok)msg='const/let variables cannot be used before their line runs.';
+n.textContent=msg;n.style.display=msg?'block':'none';
+}
+['st','ps','ar2'].forEach(function(id){$(id).addEventListener('input',up)});
+up();
+</script>
+</body>
+</html>

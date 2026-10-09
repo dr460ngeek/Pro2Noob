@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Conditionals — Part 7</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--cx:#e1f1e6;--cxl:#2f7a4f;--teal:#0f766e;--tealbg:#dff3f0;--coral:#c2410c;--coralbg:#fde8dc;--warnbg:#fdf1d6;--warn:#8a5a00;--danger:#c0392b}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--cx:#1c3326;--cxl:#7fcaa0;--teal:#5fd1c4;--tealbg:#17332f;--coral:#f4a173;--coralbg:#3a2418;--warnbg:#3a2f12;--warn:#f0c869;--danger:#ef8a7c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.cx{background:var(--cx);border-left:3px solid var(--cxl);border-radius:0 8px 8px 0;padding:8px 14px;margin:10px 0 0}
+.cx pre{margin:6px 0;background:rgba(0,0,0,.06)}
+.cx p{margin:4px 0}
+details{margin:6px 0 12px;border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14.5px;background:var(--card)}
+summary{cursor:pointer;color:var(--muted)}
+details p,details ul{margin:8px 0 4px}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600;font-size:14px;text-anchor:middle}
+svg .m{text-anchor:middle}
+.pu{fill:var(--accent-bg);stroke:var(--accent)}.tl{fill:var(--tealbg);stroke:var(--teal)}.o{fill:var(--coralbg);stroke:var(--coral)}
+.ln{stroke:var(--muted);stroke-width:1.5;fill:none}.fl{stroke:var(--danger);stroke-width:2;fill:none}
+.ctl{display:grid;gap:10px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ctl label.ck{flex-direction:row;align-items:center;gap:8px;font-size:14px;color:var(--fg)}
+.ctl output{color:var(--fg);font-weight:600}
+#res{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:8px;padding:12px 14px}
+#res .k{color:var(--muted)}#res .v{font-weight:600}
+#nt{font-size:13px;border-radius:8px;padding:8px 12px;margin-top:10px;background:var(--code);color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Conditionals: if/else-if and switch — Part 7</h1>
+<p class="mm">Mental model: a conditional is a fork in the road. The ladder asks questions in order and takes the first "yes". A switch jumps straight to the exact matching label.</p>
+
+<h2>1. The if / else if / else ladder</h2>
+<div class="cx">
+<pre><code>const score = 50;
+
+if (score &gt;= 90) {
+  console.log("A+");
+} else if (score &gt;= 80) {
+  console.log("A");
+} else if (score &gt;= 70) {
+  console.log("B+");
+} else if (score &gt;= 60) {
+  console.log("B");
+} else {
+  console.log("Need to improve (or) Fail.");   // runs for 50
+}</code></pre>
+<p>The <code>&gt;= 60</code> branch prints <code>"B"</code>.</p>
+</div>
+<details><summary>What I corrected</summary>
+<p>The class code printed <code>"A"</code> for 60 and above, a second time. That looks like a copy-paste slip, since the grades run A+, A, B+, B, and your switch prints <code>"B"</code> for 60. Please check it against what your teacher said.</p>
+</details>
+<ul>
+<li>Conditions are checked top to bottom. The first true one runs and the rest are skipped, so only one branch ever runs.</li>
+<li>Order matters: go from strictest to loosest. If <code>&gt;= 60</code> came first, a 95 would print "B".</li>
+<li><code>else</code> means nothing above matched, and it's optional. Each condition is converted to a boolean (truthy/falsy, Part 2).</li>
+</ul>
+<p class="mm">Ladder = first "yes" wins, so go from strictest to loosest.</p>
+
+<h2>2. switch</h2>
+<div class="cx">
+<pre><code>const score = 81;
+
+switch (score) {
+  case 90:
+    console.log("A+");
+    break;
+  case 80:
+    console.log("A");
+    break;
+  case 70:
+    console.log("B+");
+    break;
+  case 60:
+  case 50:
+    console.log("B");
+    break;
+  default:
+    console.log("Need to improve (or) Fail.");
+}</code></pre>
+<p><code>case 70</code> ends with <code>break</code>, and the stray text after the closing brace is gone.</p>
+</div>
+<details><summary>What I corrected</summary>
+<ul>
+<li>The class code had no <code>break</code> after <code>case 70</code>, so a 70 would print "B+" and then "B" (fall-through). If it was left out on purpose to demonstrate fall-through, that's the demo. For grading, you'd want the <code>break</code>.</li>
+<li><code>} (for switch cases).</code> after the closing brace is a syntax error, so I removed it.</li>
+</ul>
+</details>
+<ul>
+<li><code>switch (score)</code> is evaluated once and compared to each <code>case</code> with strict equality (<code>===</code>, Part 3). <code>case 80</code> matches only exactly 80, and <code>case "80"</code> wouldn't match the number 80.</li>
+<li>With <code>score = 81</code>, nothing matches, so the output is the <code>default</code> message, even though 81 is a good mark.</li>
+<li><code>break</code> leaves the switch. It's the same keyword as in loops (Part 4), but here it exits the switch. Without it, execution falls through into the next case's code, whether that case matches or not.</li>
+<li>Stacked cases like <code>case 60:</code> and <code>case 50:</code> are deliberate fall-through, so both share one block.</li>
+<li><code>default</code> means nothing matched (like <code>else</code>), and it usually goes last.</li>
+</ul>
+<p class="mm">switch = jump to the matching label, then run until break.</p>
+
+<figure>
+<svg viewBox="0 0 380 320" role="img" aria-label="Case blocks for 90, 80, 70, 60 and 50, and default. Case 70 has no break, so an arrow shows it falling through into the B block.">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="pu" x="20" y="16" width="96" height="40" rx="8"/><text class="t" x="68" y="41">case 90</text>
+<rect class="pu" x="20" y="76" width="96" height="40" rx="8"/><text class="t" x="68" y="101">case 80</text>
+<rect class="pu" x="20" y="136" width="96" height="40" rx="8"/><text class="t" x="68" y="161">case 70</text>
+<rect class="pu" x="20" y="196" width="96" height="40" rx="8"/><text class="t" x="68" y="221">case 60, 50</text>
+<rect class="pu" x="20" y="256" width="96" height="40" rx="8"/><text class="t" x="68" y="281">default</text>
+<rect class="tl" x="138" y="16" width="140" height="40" rx="8"/><text class="t" x="208" y="41">prints A+</text>
+<rect class="tl" x="138" y="76" width="140" height="40" rx="8"/><text class="t" x="208" y="101">prints A</text>
+<rect class="o" x="138" y="136" width="140" height="40" rx="8"/><text class="t" x="208" y="161">prints B+</text>
+<rect class="tl" x="138" y="196" width="140" height="40" rx="8"/><text class="t" x="208" y="221">prints B</text>
+<rect class="tl" x="138" y="256" width="140" height="40" rx="8"/><text class="t" x="208" y="281">prints fail message</text>
+<line class="ln" x1="118" y1="36" x2="136" y2="36" marker-end="url(#ar)"/>
+<line class="ln" x1="118" y1="96" x2="136" y2="96" marker-end="url(#ar)"/>
+<line class="ln" x1="118" y1="156" x2="136" y2="156" marker-end="url(#ar)"/>
+<line class="ln" x1="118" y1="216" x2="136" y2="216" marker-end="url(#ar)"/>
+<line class="ln" x1="118" y1="276" x2="136" y2="276" marker-end="url(#ar)"/>
+<line class="fl" x1="208" y1="178" x2="208" y2="194" marker-end="url(#ar)"/>
+<text x="218" y="190">falls through</text>
+<text x="290" y="40">break</text>
+<text x="290" y="100">break</text>
+<text x="290" y="160" style="fill:var(--danger);font-weight:600;font-size:14px">no break!</text>
+<text x="290" y="220">break</text>
+<text x="290" y="280">(last)</text>
+<text class="m" x="190" y="312">Class version: a score of 70 prints B+ then B</text>
+</svg>
+</figure>
+
+<h2>3. Which one to use</h2>
+<ul>
+<li>Use a ladder for ranges and conditions (<code>&gt;=</code>, <code>&amp;&amp;</code>, and so on).</li>
+<li>Use <code>switch</code> for exact values, like menu options or day names.</li>
+</ul>
+<p>The two blocks in class aren't equivalent. At 81, the ladder gives "A" but the switch falls to <code>default</code>. At 50, the ladder says Fail but the switch prints "B". The cause is that <code>switch</code> only matches exact values.</p>
+
+<p>Try both on any score (real JS):</p>
+<div class="ctl">
+<label>score: <output id="sv">81</output><input type="range" id="sc" min="0" max="100" step="1" value="81"></label>
+<label class="ck"><input type="checkbox" id="bk"> add break after case 70</label>
+</div>
+<div id="res">
+<div class="k">else-if ladder</div><div class="v" id="ld"></div>
+<div class="k">switch</div><div class="v" id="sw"></div>
+</div>
+<div id="nt"></div>
+
+<h2>Mental model</h2>
+<p>Both forks run only one path. The ladder tests conditions from top to bottom and takes the first true one, so it handles ranges. The switch evaluates once and jumps to the case that matches exactly (<code>===</code>), then keeps running until it hits a <code>break</code>. A missing <code>break</code> causes fall-through, and <code>default</code> or <code>else</code> catches everything unmatched.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td><code>if / else if / else</code></td><td>Check conditions top to bottom, first true runs</td></tr>
+<tr><td>order of conditions</td><td>Strictest first, or earlier ones swallow later ones</td></tr>
+<tr><td><code>else</code> / <code>default</code></td><td>Runs when nothing else matched</td></tr>
+<tr><td><code>switch (x)</code></td><td>Evaluates <code>x</code> once, compares with <code>===</code></td></tr>
+<tr><td><code>case value:</code></td><td>Exact match only, no ranges</td></tr>
+<tr><td><code>break</code></td><td>Leaves the switch (without it, execution falls through)</td></tr>
+<tr><td>stacked cases</td><td><code>case 60: case 50:</code> share one block on purpose</td></tr>
+<tr><td>ladder vs switch</td><td>Ladder for ranges, switch for exact values</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+function ladder(s){if(s>=90)return['A+'];else if(s>=80)return['A'];else if(s>=70)return['B+'];else if(s>=60)return['B'];else return['Need to improve (or) Fail.'];}
+function sw(s,brk){var out=[];
+switch(s){
+case 90:out.push('A+');break;
+case 80:out.push('A');break;
+case 70:out.push('B+');if(brk)break;
+case 60:
+case 50:out.push('B');break;
+default:out.push('Need to improve (or) Fail.');break;}
+return out;}
+function up(){
+var s=+$('sc').value,brk=$('bk').checked;
+$('sv').textContent=s;
+var L=ladder(s),W=sw(s,brk);
+$('ld').textContent=L.join('  then  ');
+$('sw').textContent=W.join('  then  ');
+var msg,warn=true;
+if(W.length>1)msg='Fall-through: case 70 has no break, so the next case body ran too.';
+else if(W[0].indexOf('Need')===0&&L[0]!==W[0])msg='switch found no exact match for '+s+', so it used default. The ladder handled it as a range.';
+else if(L[0]!==W[0])msg='They disagree here: switch only matches exact values.';
+else{msg='Both give the same answer.';warn=false;}
+var n=$('nt');n.textContent=msg;
+n.style.background=warn?'var(--warnbg)':'var(--code)';n.style.color=warn?'var(--warn)':'var(--muted)';
+}
+$('sc').addEventListener('input',up);$('bk').addEventListener('input',up);up();
+</script>
+</body>
+</html>
