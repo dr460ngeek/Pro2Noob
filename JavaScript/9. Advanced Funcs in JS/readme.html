@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Arrow Functions and Callbacks — Part 9</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f1e1b;--muted:#6b6962;--line:#dcd9d0;--card:#fff;--code:#f1efe8;--accent:#4a43b8;--accent-bg:#e9e7fb;--cx:#e1f1e6;--cxl:#2f7a4f;--teal:#0f766e;--tealbg:#dff3f0;--coral:#c2410c;--coralbg:#fde8dc;--warnbg:#fdf1d6;--warn:#8a5a00;--infobg:#e6eefb;--info:#1d4f91}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#ecebe6;--muted:#a09e96;--line:#34323a;--card:#1f1e24;--code:#26252c;--accent:#a9a4f5;--accent-bg:#2c2a4d;--cx:#1c3326;--cxl:#7fcaa0;--teal:#5fd1c4;--tealbg:#17332f;--coral:#f4a173;--coralbg:#3a2418;--warnbg:#3a2f12;--warn:#f0c869;--infobg:#1b2a44;--info:#8fb8f0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 12px;font-weight:600}
+h2{font-size:19px;margin:36px 0 8px;font-weight:600;padding-top:20px;border-top:1px solid var(--line)}
+p{margin:8px 0}
+.mm{margin:10px 0;padding:10px 14px;background:var(--accent-bg);border-left:3px solid var(--accent)}
+code{font:13.5px ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+ul{padding-left:20px;margin:8px 0}li{margin:3px 0}
+.cx{background:var(--cx);border-left:3px solid var(--cxl);border-radius:0 8px 8px 0;padding:8px 14px;margin:10px 0 0}
+.cx pre{margin:6px 0;background:rgba(0,0,0,.06)}
+.cx p{margin:4px 0}
+details{margin:6px 0 12px;border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14.5px;background:var(--card)}
+summary{cursor:pointer;color:var(--muted)}
+details p,details ul{margin:8px 0 4px}
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:10px}
+svg text{fill:var(--muted);font:12px system-ui,sans-serif}
+svg .t{fill:var(--fg);font-weight:600;font-size:14px;text-anchor:middle}
+svg .m{text-anchor:middle}
+.g{fill:var(--code);stroke:var(--muted)}.pu{fill:var(--accent-bg);stroke:var(--accent)}.tl{fill:var(--tealbg);stroke:var(--teal)}.o{fill:var(--coralbg);stroke:var(--coral)}
+.ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+.arrline{font:13px ui-monospace,Menlo,Consolas,monospace;color:var(--muted);margin:12px 0}
+.ctl{display:grid;gap:12px;margin:12px 0}
+.ctl label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+select:disabled{opacity:.45}
+#cd{margin:0 0 8px}
+#rs{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--infobg);color:var(--info);border-radius:8px;padding:10px 12px;white-space:pre-wrap}
+#nt{font-size:13px;border-radius:8px;padding:8px 12px;margin-top:8px;background:var(--code);color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>JavaScript Arrow Functions and Callbacks — Part 9</h1>
+<p class="mm">Mental model: a function is just a value. An arrow function is a shorter way to write that value, and a callback is a function you hand to another function to call for you.</p>
+
+<h2>1. Three ways to write a function</h2>
+<pre><code>function greet() { console.log('Hey Everyone!'); }              // named (declaration)
+const greet2 = function () { console.log('Good morning'); };    // function expression
+const greet3 = () =&gt; { console.log('Good morning'); };          // arrow function</code></pre>
+<p>The first two are from Part 6. The arrow function is the new, shorter form.</p>
+
+<h2>2. Arrow functions</h2>
+<div class="cx">
+<pre><code>const greet = (count) =&gt; { console.log('Hello all!', count); };
+const square = (num) =&gt; { return num * num; };   // block body: needs return
+const square = (num) =&gt; num * num;               // concise body: returns automatically</code></pre>
+<p>A body without braces returns its value automatically (implicit return). With braces you must write <code>return</code>.</p>
+</div>
+<details><summary>What I corrected</summary>
+<ul>
+<li>The class said "wrap it into a single line", but it isn't about lines. Dropping the braces gives a concise body, and its expression is returned for you.</li>
+<li><code>let greet2</code> and <code>let greet3</code> became <code>const</code>, since they're never reassigned (Part 1).</li>
+</ul>
+</details>
+<p>Rules to remember:</p>
+<ul>
+<li>Zero parameters need <code>()</code>. One parameter can skip the parentheses (<code>num =&gt; num * num</code>). Two or more need them.</li>
+<li>To return an object from a concise body, wrap it in parentheses: <code>() =&gt; ({ a: 1 })</code>.</li>
+<li>Arrow functions are function expressions, so they aren't hoisted (Part 6) and only work after their line.</li>
+</ul>
+<p class="mm">Arrow = (inputs) =&gt; output. No braces means the value is returned for you.</p>
+
+<h2>3. Callbacks</h2>
+<div class="cx">
+<pre><code>const calculate = (a, b, operation) =&gt; {
+  return operation(a, b);
+};
+
+// Method 1: anonymous function
+const summation = calculate(2, 3, function (n1, n2) { return n1 + n2; });
+console.log(summation);          // 5
+
+// Method 2: named function
+function sub(a, b) { return a - b; }
+const subtraction = calculate(2, 3, sub);     // pass sub, not sub()
+console.log(subtraction);        // -1
+
+// Method 3: arrow function
+const mult = (a, b) =&gt; a * b;
+const multiplication = calculate(2, 3, mult);
+console.log(multiplication);     // 6</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<p>Method 1 in class logged <code>calculate</code>, which prints the function itself, not a result. It should log <code>summation</code>, which is 5.</p>
+</details>
+<ul>
+<li>A callback is a function passed as an argument, and the receiving function decides when to call it. This works because functions are values: you can store them, pass them, and return them.</li>
+<li>Pass the function itself (<code>sub</code>), not <code>sub()</code>. With parentheses you'd call it immediately and pass its result instead.</li>
+</ul>
+<p class="mm">Callback = "here, you call this for me".</p>
+
+<figure>
+<svg viewBox="0 0 380 310" role="img" aria-label="Arguments 2, 3 and the function sub flow into calculate, which runs operation(a, b) and returns -1.">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="g" x="40" y="16" width="60" height="36" rx="8"/><text class="t" x="70" y="39">2</text>
+<rect class="g" x="140" y="16" width="60" height="36" rx="8"/><text class="t" x="170" y="39">3</text>
+<rect class="o" x="240" y="16" width="100" height="36" rx="8"/><text class="t" x="290" y="39">sub</text>
+<line class="ln" x1="70" y1="54" x2="70" y2="104" marker-end="url(#ar)"/>
+<line class="ln" x1="170" y1="54" x2="170" y2="104" marker-end="url(#ar)"/>
+<line class="ln" x1="290" y1="54" x2="290" y2="104" marker-end="url(#ar)"/>
+<text x="78" y="84">a</text><text x="178" y="84">b</text><text x="298" y="84">operation</text>
+<rect class="tl" x="20" y="106" width="340" height="100" rx="8"/>
+<text class="t" x="190" y="135">calculate(a, b, operation)</text>
+<text class="t" x="190" y="167">return operation(a, b)</text>
+<text class="m" x="190" y="192">operation is sub, so this runs sub(2, 3)</text>
+<line class="ln" x1="190" y1="208" x2="190" y2="244" marker-end="url(#ar)"/>
+<rect class="pu" x="140" y="246" width="100" height="36" rx="8"/><text class="t" x="190" y="269">-1</text>
+<text class="m" x="190" y="302">Pass the function itself: sub, not sub()</text>
+</svg>
+</figure>
+
+<h2>4. Callbacks in array methods</h2>
+<div class="cx">
+<pre><code>const arr = [2, 5, 6, 8, 0, -3, -5, -2];
+
+const isNegative = (num) =&gt; num &lt; 0;
+
+arr.find(isNegative);        // -3  (first item that passes the test)
+arr.findIndex(isNegative);   // 5   (its index)
+
+arr.forEach((num, index) =&gt; {
+  console.log(num, index);   // 2 0, 5 1, ... -2 7
+});</code></pre>
+</div>
+<details><summary>What I corrected</summary>
+<ul>
+<li><code>printFirstNegativeNum</code> doesn't print anything, and it doesn't find anything either. It's a yes/no test, and <code>find</code> or <code>findIndex</code> do the finding. <code>isNegative</code> is a better name.</li>
+<li>The three "methods" in class are the same test written three ways: concise (<code>num &lt; 0</code>), a block with <code>return num &lt; 0</code>, and a block with <code>if (num &lt; 0) { return num; }</code>. The third returns the number instead of true/false. It only works for negatives because they're truthy (Part 2). A test for <code>0</code> written that way would fail, because it returns <code>0</code>, which is falsy.</li>
+</ul>
+</details>
+<ul>
+<li><code>find</code> returns the first item whose callback result is truthy, or <code>undefined</code> if none pass. <code>findIndex</code> returns its index, or <code>-1</code> (like <code>indexOf</code>, Part 5). Both stop at the first match.</li>
+<li><code>forEach</code> calls the callback for every item with <code>(item, index, array)</code>. The order of parameters matters, the names don't. It ignores the callback's return value, and you can't <code>break</code> out of it (Part 4).</li>
+</ul>
+<p class="mm">find/findIndex = "which one passes this test?" forEach = "do this for each".</p>
+
+<p>Try different tests and callback styles (real JS):</p>
+<div class="arrline">arr = [2, 5, 6, 8, 0, -3, -5, -2]</div>
+<div class="ctl">
+<label>method<select id="mt"><option value="find">find</option><option value="findIndex">findIndex</option><option value="forEach">forEach</option></select></label>
+<label>test<select id="ts"><option>num &lt; 0</option><option>num &gt; 5</option><option>num === 0</option></select></label>
+<label>callback style<select id="sy"><option value="bool">returns true / false (Methods 1 and 2)</option><option value="num">returns num itself (Method 3)</option></select></label>
+</div>
+<pre id="cd"></pre>
+<div id="rs"></div>
+<div id="nt"></div>
+
+<h2>Mental model</h2>
+<p>A function is just a value, so you can store it, pass it, and return it. An arrow function is the short way to write one: <code>(inputs) =&gt; output</code>, and with no braces the value is returned for you. A callback is a function you hand to another function, which decides when to call it. Array methods like <code>find</code>, <code>findIndex</code>, and <code>forEach</code> take callbacks. A test callback should return true/false, because <code>find</code> and <code>findIndex</code> only care whether the result is truthy.</p>
+
+<h2>TL;DR cheat sheet</h2>
+<table>
+<tr><th>Concept</th><th>Simple meaning</th></tr>
+<tr><td><code>() =&gt; { }</code></td><td>Arrow function, block body needs <code>return</code></td></tr>
+<tr><td><code>(x) =&gt; x * x</code></td><td>Concise body, value is returned automatically</td></tr>
+<tr><td><code>x =&gt; x * x</code></td><td>One parameter can skip the parentheses</td></tr>
+<tr><td><code>() =&gt; ({ a: 1 })</code></td><td>Wrap an object literal in parentheses to return it</td></tr>
+<tr><td>arrow functions</td><td>Not hoisted, only usable after their line</td></tr>
+<tr><td>callback</td><td>A function passed as an argument for another function to call</td></tr>
+<tr><td><code>calculate(2, 3, sub)</code></td><td>Pass the function itself, not <code>sub()</code></td></tr>
+<tr><td><code>arr.find(test)</code></td><td>First item that passes, or <code>undefined</code></td></tr>
+<tr><td><code>arr.findIndex(test)</code></td><td>Index of the first item that passes, or <code>-1</code></td></tr>
+<tr><td><code>arr.forEach((item, i) =&gt; {})</code></td><td>Run for every item, return value ignored, no <code>break</code></td></tr>
+<tr><td>test callbacks</td><td>Return true/false, not the item itself</td></tr>
+</table>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var arr=[2,5,6,8,0,-3,-5,-2];
+var tests={'num < 0':function(n){return n<0},'num > 5':function(n){return n>5},'num === 0':function(n){return n===0}};
+function up(){
+var m=$('mt').value,t=$('ts').value,st=$('sy').value,test=tests[t];
+var fe=m==='forEach';
+$('ts').disabled=fe;$('sy').disabled=fe;
+var code,res,msg='',warn=false;
+if(fe){
+var lines=[];arr.forEach(function(n,i){lines.push(n+' '+i)});
+code='arr.forEach((num, index) => {\n  console.log(num, index);\n});';
+res=lines.join('\n');
+msg='forEach runs the callback for every item and ignores what it returns.';
+}else{
+var cb=st==='bool'?function(n){return test(n)}:function(n){if(test(n)){return n}};
+var cbCode=st==='bool'?'const cb = (num) => '+t+';':'const cb = (num) => {\n  if ('+t+') {\n    return num;\n  }\n};';
+code=cbCode+'\nconst result = arr.'+m+'(cb);';
+var r=m==='find'?arr.find(cb):arr.findIndex(cb);
+res='result: '+String(r);
+if(st==='num'&&t==='num === 0'){msg='The callback returned 0, which is falsy, so '+m+' treated it as "no match" even though 0 is in the array.';warn=true;}
+else if(r===undefined)msg='Nothing passed the test, so find gives undefined.';
+else if(r===-1)msg='Nothing passed the test, so findIndex gives -1.';
+else msg=m+' stops at the first item that passes.';
+}
+$('cd').textContent=code;$('rs').textContent=res;
+var n=$('nt');n.textContent=msg;
+n.style.background=warn?'var(--warnbg)':'var(--code)';n.style.color=warn?'var(--warn)':'var(--muted)';
+}
+['mt','ts','sy'].forEach(function(id){$(id).addEventListener('input',up)});
+up();
+</script>
+</body>
+</html>
