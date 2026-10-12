@@ -25,7 +25,7 @@
 // 2. ANONYMOUS FUNC / FUNCTION EXPRESSION
 // SINCE ANONYMOUS FUNCTIONS DOES NOT SUPPORT GLOBAL HOISTING FUNCTIONALITY, IT NEEDS TO BE DECLARED FIRST INORDER TO CALL IT.
 // let add = function (i, j){
-//     const result = i+k;
+//     const result = i+j;
 //     return result;
 // }
 

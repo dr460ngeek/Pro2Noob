@@ -32,23 +32,30 @@
 // console.log(square(2));
 
 // * Callback Functions *
-// const calculate = (a, b, operation) => {
-//     return operation(a,b);
-// }
+const calculate = (a, b, operation) => {
+    return operation(a, b);
+}
 
-// Anonymous Function - Method 1
-
-// const summation = calculate(2, 3, function(n1, n2){
-//     return n1+n2;
-// });
-// console.log(calculate);
-
-// Named Function - Method 2 
+// Named Function - Method 1
 // function sub(a, b){
 //     return a-b;
 // }
 // const subtraction = calculate(2, 3, sub);
 // console.log(subtraction);
+
+
+// Anonymous Function - Method 2
+
+// const summation = calculate(2, 3, function (n1, n2){
+//     return n1+n2;
+// });
+console.log(summation);
+
+// console.log(calculate(2,3, function(n1, n2){
+//     return n1+n2;
+// }));
+
+
 
 // Arrow Function - Method 3
 // const mult = (a, b) => a*b ;
@@ -56,19 +63,11 @@
 // console.log(multiplication);
 
 
-// console.log(calculate(2,3, function(n1, n2){
-//     return n1+n2;
-// }));
 
-
-// The teacher was high again so he decided to explain the
-// different approaches of Arrow functions all of sudden, while
-// explaining the callback. Though he continued callback with one
-// of these approaches.
-const arr = [2, 5, 6, 8, 0, -3, -5, -2];
+// const arr = [2, 5, 6, 8, 0, -3, -5, -2];
 
 // Method 1 
-const printFirstNegativeNum = (num) => num <0
+// const printFirstNegativeNum = (num) => num <0
 
 // Method 2
 // const printFirstNegativeNum = (num) => {
@@ -87,6 +86,6 @@ const printFirstNegativeNum = (num) => num <0
 // const result = arr.findIndex(printFirstNegativeNum);
 // console.log(result);
 
-arr.forEach((num, index)=>{
-    console.log(num, index)
-});
+// arr.forEach((num, index)=>{
+//     console.log(num, index)
+// });
