@@ -32,9 +32,9 @@
 // console.log(square(2));
 
 // * Callback Functions *
-const calculate = (a, b, operation) => {
-    return operation(a, b);
-}
+// const calculate = (a, b, operation) => {
+    // return operation(a, b);
+// }
 
 // Named Function - Method 1
 // function sub(a, b){
@@ -49,13 +49,10 @@ const calculate = (a, b, operation) => {
 // const summation = calculate(2, 3, function (n1, n2){
 //     return n1+n2;
 // });
-console.log(summation);
-
+// console.log(summation);
 // console.log(calculate(2,3, function(n1, n2){
 //     return n1+n2;
 // }));
-
-
 
 // Arrow Function - Method 3
 // const mult = (a, b) => a*b ;
@@ -64,28 +61,26 @@ console.log(summation);
 
 
 
-// const arr = [2, 5, 6, 8, 0, -3, -5, -2];
+const arr = [2, 3, 5, 66, 53, -2, -4, 67, -70];
 
-// Method 1 
-// const printFirstNegativeNum = (num) => num <0
-
+// Method 1
+const printFirstNumber = (num) => num < 0;
 // Method 2
-// const printFirstNegativeNum = (num) => {
-//     return num < 0;
+// const printFirstNumber = (num) => {
+//     return num < 0 ;
 // }
-
 // Method 3
-// const printFirstNegativeNum = (num) => {
-//     if(num<0){
+// const printFirstNumber = (num) => {
+//     if (num < 0) {
 //         return num;
 //     }
 // }
 
-// Callbacks
-// const result = arr.find(printFirstNegativeNum);
-// const result = arr.findIndex(printFirstNegativeNum);
+// const result = arr.find(printFirstNumber);
+// const result = arr.findIndex(printFirstNumber);
 // console.log(result);
 
-// arr.forEach((num, index)=>{
-//     console.log(num, index)
-// });
+// Using a method along with callback function
+arr.find((num, index) => {
+    console.log(num, index);
+})

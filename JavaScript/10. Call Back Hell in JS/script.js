@@ -8,12 +8,33 @@
 // console.log("Second");
 // console.log("Third");
 
-function getCandies(){
+function getCandies(callback1){
     setTimeout(() =>{
         const candies = '🍬';
-        console.log("Here is our candy:", candies);
-        return candies;
-    }, 5000);
+        console.log("In our getCandies method:", candies);
+        callback1(candies)
+    }, 3000);
 }
 
-console.log(getCandies());
+function handOverKeys(candies, callback2) {
+    setTimeout(() =>{
+        const keys = candies + '🔑';
+        console.log("In our handOverCandies method:", keys);
+        callback2(keys)
+    }, 3000);
+}
+function onboarding(keys, callback3) {
+    setTimeout(() =>{
+        const onboarded = keys + '🏛️';
+        console.log("In our onboarding method:", onboarded);
+        callback3(onboarded)
+    }, 3000);
+}
+
+getCandies((candies)=>{
+    handOverKeys(candies, (keys)=>{
+        onboarding(keys, (onboarded) => {
+            console.log("Welcome to our restaurant", onboarded);
+        });
+    });
+});
