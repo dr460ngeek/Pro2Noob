@@ -31,10 +31,10 @@ function onboarding(keys, callback3) {
     }, 3000);
 }
 
-getCandies((candies)=>{
-    handOverKeys(candies, (keys)=>{
-        onboarding(keys, (onboarded) => {
-            console.log("Welcome to our restaurant", onboarded);
-        });
-    });
-});
+// getCandies((candies)=>{
+//     handOverKeys(candies, (keys)=>{
+//         onboarding(keys, (onboarded) => {
+//             console.log("Welcome to our restaurant", onboarded);
+//         });
+//     });
+// });
