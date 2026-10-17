@@ -38,3 +38,7 @@ function onboarding(keys, callback3) {
 //         });
 //     });
 // });
+
+getCandies(function (candies){
+    console.log(candies);
+});
